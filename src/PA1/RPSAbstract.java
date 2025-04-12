@@ -1,6 +1,22 @@
+
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA1 Write-up
+   
+  This file is for CSE 12 PA1 in Spring 2025,
+*/
 import java.util.Random;
 
 // MARK: RPSAbstract
+/**
+ * This class handles the primary logic of the RPS game
+ * Including the main gameplay loop, handingle wins / losses
+ *
+ * Additionally, this abstract class stores the messages and constants
+ * associated with this game
+ */
 public abstract class RPSAbstract implements RPSInterface {
     protected static final int SEED = 12;
     protected final Random rand = new Random(SEED);
@@ -15,8 +31,6 @@ public abstract class RPSAbstract implements RPSInterface {
     protected int numCPUWins;
     protected int numTies;
 
-    protected int numPossibleMoves;
-
     // The complete history of the moves
     protected String[] playerMoves;
     protected String[] cpuMoves;
@@ -24,11 +38,6 @@ public abstract class RPSAbstract implements RPSInterface {
     // The default moves. Use for the basic implementation of the game.
     protected static final String[] DEFAULT_MOVES = { "rock", "paper",
             "scissors" };
-
-    /*
-     * Important: Use the following constants to avoid output matching issues
-     * and magic numbers!
-     */
 
     // MARK: Game Messages / Outcomes
     // Messages for the game.
@@ -40,6 +49,8 @@ public abstract class RPSAbstract implements RPSInterface {
     protected static final String THANKS = "Thanks for playing!\nOur most recent games were:";
     protected static final String PROMPT_MOVE = "Let's play! What's your move? (Type the move or q to quit)";
     protected static final String Max_GAMES_MSG = "Maximum Number of Games Reached";
+
+    protected static final String ESCAPE_CHAR = "q";
 
     protected static final String OVERALL_STATS = "Our overall stats are:\n" +
             "I won: %.2f%%\nYou won: %.2f%%\nWe tied: %.2f%%\n";
@@ -59,6 +70,13 @@ public abstract class RPSAbstract implements RPSInterface {
     protected static final String QUIT = "q";
 
     // MARK: isValidMove
+    /**
+     * Checks whether a given move is valid, by checking if it is in the possible
+     * moves array
+     * 
+     * @param move the move to check
+     * @retunr whether or not the move is valid
+     */
     @Override
     public boolean isValidMove(String move) {
         for (int i = 0; i < possibleMoves.length; i++) {
@@ -70,24 +88,31 @@ public abstract class RPSAbstract implements RPSInterface {
     }
 
     // MARK: playRPS
+    /**
+     * Plays a game of RPS
+     * checks the validity of the two provided inputs
+     * Increments instance variable data depending on outcoome
+     * 
+     * @param playerMove the players move
+     * @param cpuMove    the CPUs move
+     */
     @Override
     public void playRPS(String playerMove, String cpuMove) {
-        if (!isValidMove(cpuMove) || !isValidMove(playerMove)) {
+        // check the result of the two moves + their validity
+        int result = this.determineWinner(playerMove, cpuMove);
+        if (result == INVALID_INPUT_OUTCOME) {
             System.out.println(INVALID_INPUT);
             return;
         }
 
-        int result = this.determineWinner(playerMove, cpuMove);
-        if (result == INVALID_INPUT_OUTCOME) {
-            return;
-        }
-
+        // if the inputs were valid, update the game stats
         this.playerMoves[numGames] = playerMove;
         this.cpuMoves[numGames] = cpuMove;
         this.numGames += 1;
 
         System.out.printf(CPU_MOVE, cpuMove);
 
+        // update the relevant stats based on the winner
         if (result == PLAYER_WIN_OUTCOME) {
             System.out.println(PLAYER_WIN);
             this.numPlayerWins += 1;
