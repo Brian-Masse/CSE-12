@@ -1,16 +1,28 @@
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA2 Write-up
+   
+  This file is for CSE 12 PA1 in Spring 2025,
+*/
+
 import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-
 import org.junit.*;
 
+// MARK: MyArrayListHiddenTester
+/**
+ * This class tests special cases of the MyArrayListClass
+ * Most of the tests focus on edge cases and exception handling
+ */
 public class MyArrayListHiddenTester {
 
     private int storedCapacity;
     private int storedSize;
     private Object[] storedData;
 
-    private MyArrayList fullList, fullObjectList, largeList, repeatedElement;
+    private MyArrayList<Integer> fullList, largeList, repeatedElement;
+    private MyArrayList<Object> fullObjectList;
 
     protected static final int LARGE_LIST_SIZE = 1024;
     protected static final int FINAL_INDEX_REPEATED_FIND = 4;
@@ -43,6 +55,13 @@ public class MyArrayListHiddenTester {
     }
 
     // MARK: storeListInformation
+    /**
+     * Stores the capacity, size, and data of the given list in instance variables
+     * in the class
+     * Is used to quickly test these three parameters
+     * 
+     * @param list the arraylist to store the values of
+     */
     private void storeListInformation(MyArrayList list) {
         this.storedCapacity = list.data.length;
         this.storedSize = list.size;
@@ -50,6 +69,11 @@ public class MyArrayListHiddenTester {
     }
 
     // MARK: testArrayAgainstStoredInfo
+    /**
+     * Checks the capacity, size, and data of the list against the stored values
+     * 
+     * @param list the arraylist to test
+     */
     private void testArrayAgainstStoredInfo(MyArrayList list) {
         assertEquals("Checking Capacity",
                 this.storedCapacity,
@@ -71,7 +95,7 @@ public class MyArrayListHiddenTester {
     public void testConstructorInvalidArg() {
         boolean caughtException = false;
         try {
-            MyArrayList temp = new MyArrayList(-5);
+            MyArrayList<Integer> temp = new MyArrayList<Integer>(-5);
         } catch (IllegalArgumentException e) {
             caughtException = true;
         }
@@ -91,7 +115,7 @@ public class MyArrayListHiddenTester {
         this.storedSize = 0;
         this.storedData = new Object[MyArrayList.DEFAULT_CAPACITY];
 
-        MyArrayList list1 = new MyArrayList<>(null);
+        MyArrayList<Integer> list1 = new MyArrayList<>(null);
 
         this.testArrayAgainstStoredInfo(list1);
     }
@@ -108,7 +132,7 @@ public class MyArrayListHiddenTester {
         this.storedSize = LARGE_LIST_SIZE;
         this.storedData = arr;
 
-        MyArrayList list2 = new MyArrayList<>(arr);
+        MyArrayList<Object> list2 = new MyArrayList<>(arr);
 
         this.testArrayAgainstStoredInfo(list2);
     }
