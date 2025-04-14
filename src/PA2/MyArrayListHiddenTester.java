@@ -12,8 +12,8 @@ import org.junit.*;
 
 // MARK: MyArrayListHiddenTester
 /**
- * This class tests special cases of the MyArrayListClass
- * Most of the tests focus on edge cases and exception handling
+ * This class tests special cases of the MyArrayListClass Most of the tests
+ * focus on edge cases and exception handling
  */
 public class MyArrayListHiddenTester {
 
@@ -26,12 +26,14 @@ public class MyArrayListHiddenTester {
 
     protected static final int LARGE_LIST_SIZE = 1024;
     protected static final int FINAL_INDEX_REPEATED_FIND = 4;
+    protected static final int DEFAULT_CAPACITY = 5;
+    protected static final int INDEX_NOT_FOUND = -1;
 
     // MARK: Before
     /**
-     * This sets up the test fixture. JUnit invokes this method before
-     * every testXXX method. The @Before tag tells JUnit to run this method
-     * before each test
+     * This sets up the test fixture. JUnit invokes this method before every
+     * testXXX method. The @Before tag tells JUnit to run this method before
+     * each test
      */
     @Before
     public void setUp() throws Exception {
@@ -49,16 +51,16 @@ public class MyArrayListHiddenTester {
 
         largeList = new MyArrayList<Integer>(largeArray);
 
-        Integer[] repeatedElementArray = new Integer[] { 0, 1, 2, 2, 2, 3, 4, 5 };
+        Integer[] repeatedElementArray = new Integer[] { 0, 1, 2, 2, 2, 3, 4,
+                5 };
         repeatedElementArray[FINAL_INDEX_REPEATED_FIND] = 2;
         repeatedElement = new MyArrayList<Integer>(repeatedElementArray);
     }
 
     // MARK: storeListInformation
     /**
-     * Stores the capacity, size, and data of the given list in instance variables
-     * in the class
-     * Is used to quickly test these three parameters
+     * Stores the capacity, size, and data of the given list in instance
+     * variables in the class Is used to quickly test these three parameters
      * 
      * @param list the arraylist to store the values of
      */
@@ -75,21 +77,15 @@ public class MyArrayListHiddenTester {
      * @param list the arraylist to test
      */
     private void testArrayAgainstStoredInfo(MyArrayList list) {
-        assertEquals("Checking Capacity",
-                this.storedCapacity,
+        assertEquals("Checking Capacity", this.storedCapacity,
                 list.data.length);
-        assertEquals("Checking Size",
-                this.storedSize,
-                list.size);
-        assertArrayEquals("Checking data",
-                this.storedData,
-                list.data);
+        assertEquals("Checking Size", this.storedSize, list.size);
+        assertArrayEquals("Checking data", this.storedData, list.data);
     }
 
     // MARK: testConstructorInvalidArg
     /**
-     * Aims to test the constructor when the input argument
-     * is not valid
+     * Aims to test the constructor when the input argument is not valid
      */
     @Test
     public void testConstructorInvalidArg() {
@@ -100,8 +96,7 @@ public class MyArrayListHiddenTester {
             caughtException = true;
         }
 
-        assertEquals("Check invalid input on 2nd constructor",
-                true,
+        assertEquals("Check invalid input on 2nd constructor", true,
                 caughtException);
     }
 
@@ -111,9 +106,9 @@ public class MyArrayListHiddenTester {
      */
     @Test
     public void testConstructorNullArg() {
-        this.storedCapacity = MyArrayList.DEFAULT_CAPACITY;
+        this.storedCapacity = DEFAULT_CAPACITY;
         this.storedSize = 0;
-        this.storedData = new Object[MyArrayList.DEFAULT_CAPACITY];
+        this.storedData = new Object[DEFAULT_CAPACITY];
 
         MyArrayList<Integer> list1 = new MyArrayList<>(null);
 
@@ -163,8 +158,8 @@ public class MyArrayListHiddenTester {
 
     // MARK: testAppendNull
     /**
-     * Aims to test the append method when null is added to a full list
-     * Check reflection on size and capacity
+     * Aims to test the append method when null is added to a full list Check
+     * reflection on size and capacity
      */
     @Test
     public void testAppendNull() {
@@ -204,9 +199,9 @@ public class MyArrayListHiddenTester {
 
     // MARK: testPrependNull
     /**
-     * Aims to test the prepend method when a null element is added
-     * Checks reflection on size and capacity
-     * Checks whether null was added successfully
+     * Aims to test the prepend method when a null element is added Checks
+     * reflection on size and capacity Checks whether null was added
+     * successfully
      */
     @Test
     public void testPrependNull() {
@@ -236,8 +231,7 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised above bounds",
-                true,
+        assertEquals("check exception raised above bounds", true,
                 exceptionRaised);
 
         // test insertting below bounds
@@ -250,16 +244,14 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised blow bounds",
-                true,
+        assertEquals("check exception raised blow bounds", true,
                 exceptionRaised);
     }
 
     // MARK: testInsertMultiple
     /**
-     * Insert multiple (eg. 1000) elements sequentially beyond capacity -
-     * Check reflection on size and capacity
-     * Hint: for loop could come in handy
+     * Insert multiple (eg. 1000) elements sequentially beyond capacity - Check
+     * reflection on size and capacity Hint: for loop could come in handy
      */
     @Test
     public void testInsertMultiple() {
@@ -270,15 +262,9 @@ public class MyArrayListHiddenTester {
             testList.insert(1, i);
         }
 
-        assertEquals("check capacity",
-                1024,
-                testList.data.length);
-        assertEquals("Check size",
-                1000,
-                testList.size);
-        assertArrayEquals("check array",
-                largeList.data,
-                testList.data);
+        assertEquals("check capacity", 1024, testList.data.length);
+        assertEquals("Check size", 1000, testList.size);
+        assertArrayEquals("check array", largeList.data, testList.data);
     }
 
     // MARK: testGetOutOfBound
@@ -297,8 +283,7 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised above bounds",
-                true,
+        assertEquals("check exception raised above bounds", true,
                 exceptionRaised);
 
         // test getting below bounds
@@ -311,8 +296,8 @@ public class MyArrayListHiddenTester {
             exceptionRaised = true;
         }
 
-        assertEquals("check exception raised blow bounds",
-                true, exceptionRaised);
+        assertEquals("check exception raised blow bounds", true,
+                exceptionRaised);
         this.testArrayAgainstStoredInfo(fullList);
     }
 
@@ -332,8 +317,8 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised above bounds",
-                true, exceptionRaised);
+        assertEquals("check exception raised above bounds", true,
+                exceptionRaised);
 
         // test setting below bounds
         this.storeListInformation(fullList);
@@ -346,8 +331,8 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised blow bounds",
-                true, exceptionRaised);
+        assertEquals("check exception raised blow bounds", true,
+                exceptionRaised);
     }
 
     // MARK: testRemoveMultiple
@@ -362,12 +347,9 @@ public class MyArrayListHiddenTester {
             largeList.remove(0);
         }
 
-        assertEquals("check capacity",
-                1024, largeList.getCapacity());
-        assertEquals("check size",
-                0, largeList.size);
-        assertArrayEquals("check data",
-                expectedArray, largeList.data);
+        assertEquals("check capacity", 1024, largeList.getCapacity());
+        assertEquals("check size", 0, largeList.size);
+        assertArrayEquals("check data", expectedArray, largeList.data);
 
     }
 
@@ -387,8 +369,7 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised above bounds",
-                true,
+        assertEquals("check exception raised above bounds", true,
                 exceptionRaised);
 
         // test remove below bounds
@@ -402,15 +383,14 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised blow bounds",
-                true,
+        assertEquals("check exception raised blow bounds", true,
                 exceptionRaised);
     }
 
     // MARK: testExpandCapacitySmaller
     /**
-     * Aims to test the expandCapacity method when
-     * requiredCapacity is strictly less than the current capacity
+     * Aims to test the expandCapacity method when requiredCapacity is strictly
+     * less than the current capacity
      */
     @Test
     public void testExpandCapacitySmaller() {
@@ -425,14 +405,13 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised above bounds",
-                true,
+        assertEquals("check exception raised above bounds", true,
                 exceptionRaised);
     }
 
     /**
-     * Aims to test the expandCapacity method when
-     * requiredCapacity is greater than current capacity * 2 and default capacity
+     * Aims to test the expandCapacity method when requiredCapacity is greater
+     * than current capacity * 2 and default capacity
      */
     @Test
     public void testExpandCapacityLarge() {
@@ -447,8 +426,7 @@ public class MyArrayListHiddenTester {
 
     // MARK: testRotateOutOfBound
     /**
-     * Aims to test the rotate method when
-     * input numPositions is out of bounds
+     * Aims to test the rotate method when input numPositions is out of bounds
      */
     @Test
     public void testRotateOutOfBound() {
@@ -462,8 +440,7 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised above bounds",
-                true,
+        assertEquals("check exception raised above bounds", true,
                 exceptionRaised);
 
         // test remove below bounds
@@ -476,15 +453,13 @@ public class MyArrayListHiddenTester {
         }
 
         this.testArrayAgainstStoredInfo(fullList);
-        assertEquals("check exception raised blow bounds",
-                true,
+        assertEquals("check exception raised blow bounds", true,
                 exceptionRaised);
     }
 
     // MARK: testFindMultiple
     /**
-     * Aims to test the find method when
-     * there are multiple of the input element
+     * Aims to test the find method when there are multiple of the input element
      */
     @Test
     public void testFindMultiple() {
@@ -492,15 +467,14 @@ public class MyArrayListHiddenTester {
 
         int index = repeatedElement.find(2);
 
-        assertEquals("checking found index",
-                FINAL_INDEX_REPEATED_FIND, index);
+        assertEquals("checking found index", FINAL_INDEX_REPEATED_FIND, index);
         this.testArrayAgainstStoredInfo(repeatedElement);
     }
 
     // MARK: testFindDoesNotExist
     /**
-     * Aims to test the find method when
-     * input element does not exist in the list
+     * Aims to test the find method when input element does not exist in the
+     * list
      */
     @Test
     public void testFindDoesNotExist() {
@@ -508,8 +482,7 @@ public class MyArrayListHiddenTester {
 
         int index = repeatedElement.find(LARGE_LIST_SIZE);
 
-        assertEquals("checking found index",
-                MyArrayList.INDEX_NOT_FOUND, index);
+        assertEquals("checking found index", INDEX_NOT_FOUND, index);
         this.testArrayAgainstStoredInfo(repeatedElement);
     }
 

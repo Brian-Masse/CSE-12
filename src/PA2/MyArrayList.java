@@ -12,9 +12,7 @@
  * in Java
  * 
  * It implements the MyList Interface, which includes several standard functions
- * to create a Java Collection, inclulding:
- * append, prepend, and insert
- * remove
+ * to create a Java Collection, inclulding: append, prepend, and insert remove
  * find, rotate
  */
 public class MyArrayList<E> implements MyList<E> {
@@ -53,8 +51,8 @@ public class MyArrayList<E> implements MyList<E> {
     }
 
     /**
-     * Construct a new instance of MyArrayList
-     * If the passed array is null, default to the no-arg constructor
+     * Construct a new instance of MyArrayList If the passed array is null,
+     * default to the no-arg constructor
      * 
      * @param arr the initial data for the list.
      */
@@ -72,8 +70,8 @@ public class MyArrayList<E> implements MyList<E> {
     // MARK: extendCapacity
     /**
      * If the current capacity is non-zero, double the current capacity. If the
-     * current capacity is 0, reset the capacity to the default capacity. If
-     * the capacity is still not enough, then set the capacity to requiredCapacity.
+     * current capacity is 0, reset the capacity to the default capacity. If the
+     * capacity is still not enough, then set the capacity to requiredCapacity.
      * 
      * @param requiredCapacity the minimum capacity for resized data
      */
@@ -86,8 +84,10 @@ public class MyArrayList<E> implements MyList<E> {
         // determine the newCapacity
         int currentCapacity = this.getCapacity();
 
-        int newCapacity = (currentCapacity == 0) ? DEFAULT_CAPACITY : currentCapacity * 2;
-        newCapacity = (newCapacity < requiredCapacity) ? requiredCapacity : newCapacity;
+        int newCapacity = (currentCapacity == 0) ? DEFAULT_CAPACITY
+                : currentCapacity * 2;
+        newCapacity = (newCapacity < requiredCapacity) ? requiredCapacity
+                : newCapacity;
 
         // copy the objects into the resized array
         Object[] resizedData = new Object[newCapacity];
@@ -112,8 +112,8 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: checkCapacity
     /**
-     * checks whether the current list is full, and if so, calls the expandCapacity
-     * function
+     * checks whether the current list is full, and if so, calls the
+     * expandCapacity function
      * 
      * @param newRequiredCapacity the requiredCapacity var to be passed to
      *                            expandCapacity
@@ -237,9 +237,8 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: size
     /**
-     * gets the current size of the arrayList
-     * This value represents how many valid elements there are, not the capacity of
-     * the list
+     * gets the current size of the arrayList This value represents how many
+     * valid elements there are, not the capacity of the list
      * 
      * @return the current size
      */
@@ -274,9 +273,9 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: Find
     /**
-     * Finds and returns the index of the specified element
-     * if there are multiple copies of the element, it returns the last one
-     * returns -1 if there element is not found
+     * Finds and returns the index of the specified element if there are
+     * multiple copies of the element, it returns the last one returns -1 if
+     * there element is not found
      * 
      * @param element the element to find
      * @return the index of the element
