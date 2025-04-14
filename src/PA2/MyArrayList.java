@@ -2,6 +2,7 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: Constants
     protected static final int DEFAULT_CAPACITY = 5;
+    protected static final int INDEX_NOT_FOUND = -1;
 
     // MARK: Vars
     Object[] data;
@@ -14,6 +15,10 @@ public class MyArrayList<E> implements MyList<E> {
     }
 
     public MyArrayList(int initialCapacity) {
+        if (initialCapacity < 0) {
+            throw new IllegalArgumentException();
+        }
+
         this.data = new Object[initialCapacity];
         this.size = 0;
     }
@@ -31,13 +36,14 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: extendCapacity
     @Override
-    public void expandCapacity(int requiredCapacity) throws IllegalArgumentException {
+    public void expandCapacity(int requiredCapacity) {
         if (requiredCapacity < this.size) {
             throw new IllegalArgumentException();
         }
 
         // determine the newCapacity
         int currentCapacity = this.getCapacity();
+
         int newCapacity = (currentCapacity == 0) ? DEFAULT_CAPACITY : currentCapacity * 2;
         newCapacity = (newCapacity < requiredCapacity) ? requiredCapacity : newCapacity;
 
@@ -66,7 +72,7 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: insert
     @Override
-    public void insert(int index, E element) throws IndexOutOfBoundsException {
+    public void insert(int index, E element) {
         if (index < 0 || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -98,7 +104,7 @@ public class MyArrayList<E> implements MyList<E> {
     // MARK: get
     @SuppressWarnings("unchecked")
     @Override
-    public E get(int index) throws IndexOutOfBoundsException {
+    public E get(int index) {
         // TODO: Maybe functionalize checking indexOutOfBounds
         if (index < 0 || index > this.size) {
             throw new IndexOutOfBoundsException();
@@ -148,7 +154,7 @@ public class MyArrayList<E> implements MyList<E> {
 
     // MARK: Rotate
     @Override
-    public void rotate(int numPositions) throws IndexOutOfBoundsException {
+    public void rotate(int numPositions) {
         if (numPositions < 0 || numPositions > this.size) {
             throw new IndexOutOfBoundsException();
         }
@@ -173,6 +179,6 @@ public class MyArrayList<E> implements MyList<E> {
                 return i;
             }
         }
-        return -1;
+        return INDEX_NOT_FOUND;
     }
 }
