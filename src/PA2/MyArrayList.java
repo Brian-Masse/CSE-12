@@ -20,6 +20,8 @@ public class MyArrayList<E> implements MyList<E> {
     // MARK: Constants
     protected static final int DEFAULT_CAPACITY = 5;
     protected static final int INDEX_NOT_FOUND = -1;
+    protected static final int EMPTY_SIZE = 0;
+    protected static final int CAPACITY_SCALE_FACTOR = 2;
 
     // MARK: Vars
     Object[] data;
@@ -33,7 +35,7 @@ public class MyArrayList<E> implements MyList<E> {
      */
     public MyArrayList() {
         this.data = new Object[DEFAULT_CAPACITY];
-        this.size = 0;
+        this.size = EMPTY_SIZE;
     }
 
     /**
@@ -42,12 +44,12 @@ public class MyArrayList<E> implements MyList<E> {
      * @param initialCapacity the initialCapacity for the data
      */
     public MyArrayList(int initialCapacity) {
-        if (initialCapacity < 0) {
+        if (initialCapacity < EMPTY_SIZE) {
             throw new IllegalArgumentException();
         }
 
         this.data = new Object[initialCapacity];
-        this.size = 0;
+        this.size = EMPTY_SIZE;
     }
 
     /**
@@ -63,7 +65,7 @@ public class MyArrayList<E> implements MyList<E> {
             this.size = arr.length;
         } else {
             this.data = new Object[DEFAULT_CAPACITY];
-            this.size = 0;
+            this.size = EMPTY_SIZE;
         }
     }
 
@@ -85,7 +87,7 @@ public class MyArrayList<E> implements MyList<E> {
         int currentCapacity = this.getCapacity();
 
         int newCapacity = (currentCapacity == 0) ? DEFAULT_CAPACITY
-                : currentCapacity * 2;
+                : currentCapacity * CAPACITY_SCALE_FACTOR;
         newCapacity = (newCapacity < requiredCapacity) ? requiredCapacity
                 : newCapacity;
 
@@ -133,7 +135,7 @@ public class MyArrayList<E> implements MyList<E> {
      */
     @Override
     public void insert(int index, E element) {
-        if (index < 0 || index > this.size) {
+        if (index < EMPTY_SIZE || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -181,8 +183,7 @@ public class MyArrayList<E> implements MyList<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E get(int index) {
-        // TODO: Maybe functionalize checking indexOutOfBounds
-        if (index < 0 || index > this.size) {
+        if (index < EMPTY_SIZE || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -200,7 +201,7 @@ public class MyArrayList<E> implements MyList<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E set(int index, E element) {
-        if (index < 0 || index > this.size) {
+        if (index < EMPTY_SIZE || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -220,7 +221,7 @@ public class MyArrayList<E> implements MyList<E> {
     @SuppressWarnings("unchecked")
     @Override
     public E remove(int index) {
-        if (index < 0 || index > this.size) {
+        if (index < EMPTY_SIZE || index > this.size) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -256,14 +257,14 @@ public class MyArrayList<E> implements MyList<E> {
      */
     @Override
     public void rotate(int numPositions) {
-        if (numPositions < 0 || numPositions > this.size) {
+        if (numPositions < EMPTY_SIZE || numPositions > this.size) {
             throw new IndexOutOfBoundsException();
         }
 
         Object[] dataCopy = new Object[this.getCapacity()];
 
         // rotate each element into the new array
-        for (int i = 0; i < this.size; i++) {
+        for (int i = EMPTY_SIZE; i < this.size; i++) {
             int newIndex = (i + numPositions) % this.size;
             dataCopy[newIndex] = this.data[i];
         }
