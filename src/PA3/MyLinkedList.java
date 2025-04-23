@@ -92,9 +92,14 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
     // MARK: Initializer
     public MyLinkedList() {
-        Node head = new Node(null);
-        this.head = head;
-        this.tail = head;
+        Node dummyHead = new Node(null);
+        Node dummyTail = new Node(null);
+        this.head = dummyHead;
+        this.tail = dummyTail;
+
+        this.head.setNext(this.tail);
+        this.tail.setPrev(this.head);
+
         this.size = 0;
     }
 
@@ -126,7 +131,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
     // MARK: add
     @Override
     public void add(int index, E data) {
-        checkIndexBounds(index);
+        if (index != this.size) {
+            checkIndexBounds(index);
+        }
 
         if (data == null) {
             throw new NullPointerException();
@@ -135,9 +142,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
         Node newNode = new Node(data);
 
         if (index == this.size) {
-            newNode.setPrev(this.tail);
-            this.tail.setNext(newNode);
-            this.tail = newNode;
+            newNode.setPrev(this.tail.getPrev());
+            newNode.setNext(this.tail);
+            this.tail.getPrev().setNext(newNode);
+            this.tail.setPrev(newNode);
 
         } else {
             // move to the correct position in the list
@@ -146,6 +154,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
             // Insert the new node
             newNode.setNext(currentNode);
             newNode.setPrev(currentNode.getPrev());
+            currentNode.getPrev().setNext(newNode);
             currentNode.setPrev(newNode);
         }
 
@@ -162,6 +171,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
     @Override
     public E set(int index, E data) {
         this.checkIndexBounds(index);
+
+        if (data == null) {
+            throw new NullPointerException();
+        }
 
         Node currentNode = this.getNth(index);
         E previousData = currentNode.getElement();
@@ -192,8 +205,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
     // MARK: Clear
     @Override
     public void clear() {
-        for (int i = 0; i < this.size; i++) {
-            this.remove(i);
+        int initialSize = this.size;
+        for (int i = 0; i < initialSize; i++) {
+            this.remove(0);
         }
     }
 
