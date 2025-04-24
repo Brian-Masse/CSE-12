@@ -225,6 +225,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
             this.checkIndexBounds(end);
         }
 
+        if (end <= start) {
+            return false;
+        }
+
         Node currentNode = this.getNth(start);
         for (int i = start; i < end; i++) {
             if (currentNode.getElement().equals(data)) {

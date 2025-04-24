@@ -6,7 +6,8 @@
   "java.project.referencedLibraries": [
     "/Users/brianmasse/Developer/Extra/Classes/CSE-12/lib/Checkstyle 10.7.0.jar",
     "/Users/brianmasse/Developer/Extra/Classes/CSE-12/lib/junit-4.13.2.jar",
-    "/Users/brianmasse/Developer/Extra/Classes/CSE-12/lib/hamcrest-2.2.jar"
+    "/Users/brianmasse/Developer/Extra/Classes/CSE-12/lib/hamcrest-2.2.jar",
+    "test-lib/**/*.jar"
   ],
   "[java]": {
     "editor.defaultFormatter": "redhat.java",
