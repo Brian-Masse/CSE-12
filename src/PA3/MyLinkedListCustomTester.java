@@ -1,14 +1,29 @@
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA3 Write-up
+   
+  This file is for CSE 12 PA3 in Spring 2025,
+*/
+
 import static org.junit.Assert.*;
 
 import org.junit.*;
 
+/**
+ * This class contains custom, more detailed for the implementation of the
+ * CustomLinkedList class
+ */
 public class MyLinkedListCustomTester {
 
+    // Defines a generic operation ona linkedList to make function calls easier
     @FunctionalInterface
     interface LinkedListOperation {
         void execute(MyLinkedList<Object> list);
     }
 
+    // MARK: Instance vars
     private MyLinkedList<Integer> integerList;
     private MyLinkedList<Integer> copyIntegerList;
     private MyLinkedList<Integer> emptyList;
@@ -16,10 +31,33 @@ public class MyLinkedListCustomTester {
     private Object[] storedList;
     private int storedSize;
 
+    // MARK: Static Vars
     private static final int IntegerListSize = 10;
     private static final int indexOfElementFail = -1;
 
-    // MARK: Helper functions
+    // MARK: generateIntArray
+    /**
+     * Creates an array of sequential integers starting at 0 and going to < size
+     * 
+     * @param siez the siez of the array to create
+     * @return the generate array
+     */
+    private Object[] generateIntArray(int size) {
+        Object[] arr = new Object[size + 2];
+        for (int i = 0; i < size; i++) {
+            arr[i + 1] = i;
+        }
+
+        return arr;
+    }
+
+    // MARK: printLinkedList
+    /**
+     * Creates and prints a string representation of the LinkedList. Prints both
+     * the forward and backwards interpretations of the list
+     * 
+     * @param list the list to print
+     */
     private void printLinkedList(MyLinkedList list) {
         String forwardStr = "";
         String backwardStr = "";
@@ -35,6 +73,12 @@ public class MyLinkedListCustomTester {
         System.out.println(backwardStr);
     }
 
+    // MARK: printList
+    /**
+     * Prints an array of objects
+     * 
+     * @param list the list to print
+     */
     private void printList(Object[] list) {
         String str = "";
 
@@ -45,6 +89,14 @@ public class MyLinkedListCustomTester {
         System.out.println(str);
     }
 
+    // MARK: translateList
+    /**
+     * Creates a standard Java array from a LinkedList instance. Uses the
+     * forward traversal method to create the list
+     * 
+     * @param list the list to translate
+     * @return the generated list
+     */
     private Object[] translateList(MyLinkedList<Object> list) {
         Object[] translateObjects = new Object[list.size + 2];
 
@@ -60,6 +112,13 @@ public class MyLinkedListCustomTester {
     }
 
     // MARK: ReverseTranslateList
+    /**
+     * Creates a standard Java array from a LinkedList instance. Uses the
+     * backwards traversal method to create the list
+     * 
+     * @param list the list to translate
+     * @return the generated list
+     */
     private Object[] reverseTranslateList(MyLinkedList<Object> list) {
         Object[] translatedObjects = new Object[list.size + 2];
 
@@ -75,17 +134,36 @@ public class MyLinkedListCustomTester {
     }
 
     // MARK: storeLinkedList
+    /**
+     * Copies a linkedList and stores its size and values into this class to
+     * test
+     * 
+     * @param list the list to store
+     */
     private void storeLinkedList(MyLinkedList list) {
         this.storedList = translateList(list);
         this.storedSize = list.size;
     }
 
+    /**
+     * Stores an array into this class to test. Also updates the storedSize
+     * instance var
+     * 
+     * @param list the list to store
+     */
     private void storeList(Object[] list) {
         this.storedList = list;
         this.storedSize = list.length - 2;
     }
 
     // MARK: checkListCorrectness
+    /**
+     * Checks if a given LinkedList mathces what is stored in this class. Checks
+     * that the sentinels are correct, the size matches, and both forward and
+     * backward traversed translations of the list are correct
+     * 
+     * @param list the list to check
+     */
     private void checkListCorrectness(MyLinkedList list) {
         assertEquals("Checking size correctness", storedSize, list.size);
         assertEquals("Checking dummyHead", null, list.head.data);
@@ -100,11 +178,26 @@ public class MyLinkedListCustomTester {
     }
 
     // MARK: checkExceptionCorrectness
+    /**
+     * Checks whether a glaf representing wehther an exception was raised is
+     * correct
+     * 
+     * @param expected the expected value of the flag
+     * @param actual   the actual value of the flag
+     */
     private void checkExceptionCorrectness(boolean expected, boolean actual) {
         assertEquals("Checking Exceptio", expected, actual);
     }
 
     // MARK: testNullInput
+    /**
+     * Tests inputting a null input to a LinkedList function. It both tests that
+     * an exception was raised, and that the original list was unmodified by the
+     * call
+     * 
+     * @param list      the list to test
+     * @param operation the operation to perform in the try catch block
+     */
     public void testNullInput(MyLinkedList list,
             LinkedListOperation operation) {
         boolean caughtException = false;
@@ -122,6 +215,14 @@ public class MyLinkedListCustomTester {
     }
 
     // MARK: testIndexOutOfBounds
+    /**
+     * Tests inputting an outOfBounds index to a LinkedList function. It both
+     * tests that an exception was raised, and that the original list was
+     * unmodified by the call
+     * 
+     * @param list      the list to test
+     * @param operation the operation to perform in the try catch block
+     */
     public void testIndexOutOfBounds(MyLinkedList list,
             LinkedListOperation operation) {
         boolean caughtException = false;
@@ -177,11 +278,13 @@ public class MyLinkedListCustomTester {
         }
 
         this.storeList(expectedOutput);
-        for (int i = 10; i < 100; i++) {
-            this.integerList.add(i);
+        for (int i = 0; i < 100; i++) {
+            boolean result = this.emptyList.add(i);
+            assertEquals("Check correct return value for add function", true,
+                    result);
         }
 
-        this.checkListCorrectness(this.integerList);
+        this.checkListCorrectness(emptyList);
     }
 
     // MARK: testCustomAddIdxToStart
@@ -261,29 +364,35 @@ public class MyLinkedListCustomTester {
      */
     @Test
     public void testCustomRemoveFromMiddle() {
+        int size = MyLinkedListCustomTester.IntegerListSize;
+
         // check removing from outside the bounds of the list
         this.testIndexOutOfBounds(integerList, (list) -> list.remove(-1));
-        this.testIndexOutOfBounds(integerList,
-                (list) -> list.remove(integerList.size));
+        this.testIndexOutOfBounds(integerList, (list) -> list.remove(size));
+
+        // Test remove from emptyList
+        testCustomRemoveFromEmpty();
 
         // Test continuously removing from the end;
-        Object[] expectedOutput = new Object[2];
-        this.storeList(expectedOutput);
-
-        int size = MyLinkedListCustomTester.IntegerListSize;
         for (int i = size - 1; i >= 0; i--) {
-            int result = this.integerList.remove(i);
-            assertEquals("checking remove return", i, result);
-        }
+            Object expectedResult = this.integerList.get(i);
 
-        this.checkListCorrectness(emptyList);
+            Object result = this.integerList.remove(i);
+            assertEquals("checking remove return", expectedResult, result);
+
+            Object[] expectedOutput = generateIntArray(i);
+            this.storeList(expectedOutput);
+            this.checkListCorrectness(integerList);
+        }
 
         // Test removing from the middle
-        Object[] expectedOutput2 = { null, 0, null };
-        for (int i = 0; i < 9; i++) {
-            int result = this.copyIntegerList.remove(1);
-            assertEquals("checking remove return", 0, result);
-        }
+        Object[] expectedOutput2 = { null, 0, 0, 0, 0, 0, 0, 0, null };
+        int result = this.copyIntegerList.remove(5);
+        assertEquals("checking remove return", 0, result);
+        result = this.copyIntegerList.remove(0);
+        assertEquals("checking remove return", 0, result);
+        result = this.copyIntegerList.remove(7);
+        assertEquals("checking remove return", 0, result);
 
         this.storeList(expectedOutput2);
         this.checkListCorrectness(copyIntegerList);

@@ -1,8 +1,26 @@
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA3 Write-up
+   
+  This file is for CSE 12 PA3 in Spring 2025,
+*/
+
 import java.util.AbstractList;
 
 // MARK: MyLinkedList
+/**
+ * This class represents a generic LinkedList data type similar to the one found
+ * in Java
+ * 
+ * It contains standard functions including add, insert, remove, and contains.
+ * It uses Sentinel nodes so head and tail are never null the Node class is
+ * contained within the MyLinkedList class
+ */
 public class MyLinkedList<E> extends AbstractList<E> {
 
+    // MARK: vars
     int size;
     Node head;
     Node tail;
@@ -84,6 +102,11 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: checkIndexBounds
+    /**
+     * checks whether the passed index is a valid input
+     * 
+     * @param index the index to check
+     */
     private void checkIndexBounds(int index) {
         if (index < 0 || index >= this.size) {
             throw new IndexOutOfBoundsException();
@@ -91,6 +114,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: Initializer
+    /**
+     * Initializes an empty LinkedList
+     */
     public MyLinkedList() {
         Node dummyHead = new Node(null);
         Node dummyTail = new Node(null);
@@ -104,12 +130,23 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: Size
+    /**
+     * Gets the size of the LinkedList. Does not count the sentinel nodes
+     * 
+     * @return the size of the list
+     */
     @Override
     public int size() {
         return this.size;
     }
 
     // MARK: getNth
+    /**
+     * Gets the node at the provided index. Throws an error if out of bounds
+     * 
+     * @param index the index to fetch
+     * @return the node at index
+     */
     protected Node getNth(int index) {
         checkIndexBounds(index);
 
@@ -122,6 +159,12 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: get
+    /**
+     * gets the data at the provided index. Throws an error if out of bounds
+     * 
+     * @param index the index to fetch
+     * @return the data at the index
+     */
     @Override
     public E get(int index) {
         Node node = getNth(index);
@@ -129,6 +172,15 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: add
+    /**
+     * Creates a node an adds it before the given index. Can accept inputs from
+     * index 0 to size, inclusive.
+     * 
+     * Throws an error if the data is null
+     * 
+     * @param index the index to insert after
+     * @param data  the data to insert into the list
+     */
     @Override
     public void add(int index, E data) {
         if (index != this.size) {
@@ -161,6 +213,12 @@ public class MyLinkedList<E> extends AbstractList<E> {
         this.size += 1;
     }
 
+    /**
+     * Adds data to the end of the list
+     * 
+     * @param data the data to add
+     * @return always returns true
+     */
     @Override
     public boolean add(E data) {
         this.add(this.size, data);
@@ -168,6 +226,15 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: set
+    /**
+     * Sets the data of the node at the index to the provided data
+     * 
+     * Throws an error if the data is null or if the index is out of bounds
+     * 
+     * @param index the index to set
+     * @param data  the data to set it with
+     * @return the previous value of the node
+     */
     @Override
     public E set(int index, E data) {
         this.checkIndexBounds(index);
@@ -184,6 +251,14 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: Remove
+    /**
+     * Removes the node at the given index and returns its value
+     * 
+     * throws an error if the index is out of bounds
+     * 
+     * @param index the index to remove at
+     * @return the value of the former node
+     */
     @Override
     public E remove(int index) {
         this.checkIndexBounds(index);
@@ -203,6 +278,9 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: Clear
+    /**
+     * Clears a list of all its non sentinel nodes
+     */
     @Override
     public void clear() {
         int initialSize = this.size;
@@ -212,12 +290,26 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: isEmpty
+    /**
+     * Checks whether a list is empty, not including sentinel nodes
+     */
     @Override
     public boolean isEmpty() {
         return this.size == 0;
     }
 
     // MARK: Contains
+    /**
+     * Chceks if the list contains the given data in a range. Both the start and
+     * end index must be in range with start < end
+     * 
+     * If there are multiple copies of the given data, return the first
+     * 
+     * @param data  the data to check for
+     * @param start the lower bound of the range
+     * @param end   the upper bound of the range
+     * @return whether the list contains the data
+     */
     public boolean contains(E data, int start, int end) {
         // check that the indicies are valid
         this.checkIndexBounds(start);
@@ -241,6 +333,13 @@ public class MyLinkedList<E> extends AbstractList<E> {
     }
 
     // MARK: indexOfElement
+    /**
+     * Gets the index of a given element. If there are multiple, return the
+     * first index
+     * 
+     * @param data the data to check for
+     * @return the index of the data
+     */
     public int indexOfElement(E data) {
         if (data == null) {
             throw new NullPointerException();
