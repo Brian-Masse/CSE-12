@@ -8,6 +8,7 @@
 */
 
 import java.util.AbstractList;
+import java.util.ListIterator;
 
 // MARK: MyLinkedList
 /**
@@ -99,6 +100,57 @@ public class MyLinkedList<E> extends AbstractList<E> {
         public E getElement() {
             return this.data;
         }
+    }
+
+    // MARK: - Iterator
+    protected class MyListIterator implements ListIterator<E> {
+        MyLinkedList<E>.Node left;
+        MyLinkedList<E>.Node right;
+
+        int idx;
+        boolean forward;
+        boolean canRemoveOrSet;
+
+        public MyListIterator() {
+
+        }
+
+        public boolean hasNext() {
+            return true;
+        }
+
+        public boolean hasPrevious() {
+            return true;
+        }
+
+        public E next() {
+            return null;
+        }
+
+        public E previous() {
+            return null;
+        }
+
+        public int nextIndex() {
+            return 0;
+        }
+
+        public int previousIndex() {
+            return 0;
+        }
+
+        public void add(E element) {
+
+        }
+
+        public void set(E element) {
+
+        }
+
+        public void remove() {
+
+        }
+
     }
 
     // MARK: checkIndexBounds

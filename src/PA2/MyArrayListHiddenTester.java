@@ -15,6 +15,7 @@ import org.junit.*;
  * This class tests special cases of the MyArrayListClass Most of the tests
  * focus on edge cases and exception handling
  */
+@SuppressWarnings({ "rawtypes" })
 public class MyArrayListHiddenTester {
 
     private int storedCapacity;
@@ -91,7 +92,7 @@ public class MyArrayListHiddenTester {
     public void testConstructorInvalidArg() {
         boolean caughtException = false;
         try {
-            MyArrayList<Integer> temp = new MyArrayList<Integer>(-5);
+            new MyArrayList<Integer>(-5);
         } catch (IllegalArgumentException e) {
             caughtException = true;
         }

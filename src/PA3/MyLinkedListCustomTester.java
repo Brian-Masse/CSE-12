@@ -15,6 +15,7 @@ import org.junit.*;
  * This class contains custom, more detailed for the implementation of the
  * CustomLinkedList class
  */
+@SuppressWarnings({ "rawtypes", "unchecked", "unused" })
 public class MyLinkedListCustomTester {
 
     // Defines a generic operation ona linkedList to make function calls easier
