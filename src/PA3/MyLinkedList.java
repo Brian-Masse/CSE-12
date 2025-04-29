@@ -9,6 +9,7 @@
 
 import java.util.AbstractList;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 // MARK: MyLinkedList
 /**
@@ -102,6 +103,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
     }
 
+    public ListIterator<E> listIterator() {
+        return new MyListIterator();
+    }
+
     // MARK: - Iterator
     protected class MyListIterator implements ListIterator<E> {
         MyLinkedList<E>.Node left;
@@ -111,44 +116,109 @@ public class MyLinkedList<E> extends AbstractList<E> {
         boolean forward;
         boolean canRemoveOrSet;
 
+        // MARK: MyListIterator
         public MyListIterator() {
+            this.left = head;
+            this.right = head.next;
 
+            this.idx = 0;
+            this.forward = true;
+            this.canRemoveOrSet = false;
         }
 
+        // MARK: hasNext / hasPrev
         public boolean hasNext() {
-            return true;
+            return (this.right.getElement() != null);
         }
 
         public boolean hasPrevious() {
-            return true;
+            return this.left.getElement() != null;
         }
 
+        // MARK: next
         public E next() {
-            return null;
+            if (!this.hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            this.idx += 1;
+            this.left = right;
+            this.right = right.getNext();
+
+            this.canRemoveOrSet = true;
+            this.forward = true;
+
+            return this.left.getElement();
         }
 
+        // MARK: Prev
         public E previous() {
-            return null;
+            if (!this.hasPrevious()) {
+                throw new NoSuchElementException();
+            }
+
+            this.idx -= 1;
+            this.right = this.left;
+            this.left = left.getPrev();
+
+            this.canRemoveOrSet = true;
+            this.forward = false;
+
+            return this.right.getElement();
         }
 
+        // MARK: index
         public int nextIndex() {
-            return 0;
+            return this.idx;
         }
 
         public int previousIndex() {
-            return 0;
+            return this.hasPrevious() ? this.idx - 1 : this.idx;
         }
 
+        // MARK: add
         public void add(E element) {
+            if (element == null) {
+                throw new NullPointerException();
+            }
 
+            Node newNode = new Node(element);
+            this.left = newNode;
+            this.idx += 1;
+
+            this.canRemoveOrSet = false;
         }
 
+        // MARK: set
         public void set(E element) {
+            if (element == null) {
+                throw new NullPointerException();
+            }
+            if (!this.canRemoveOrSet) {
+                throw new IllegalStateException();
+            }
 
+            if (this.forward) {
+                this.left.setElement(element);
+            } else {
+                this.right.setElement(element);
+            }
         }
 
+        // MARK: remove
         public void remove() {
+            if (!this.canRemoveOrSet) {
+                throw new IllegalStateException();
+            }
 
+            if (this.forward) {
+                this.left = this.left.getPrev();
+                this.idx -= 1;
+            } else {
+                this.right = this.right.getNext();
+            }
+
+            this.canRemoveOrSet = false;
         }
 
     }
