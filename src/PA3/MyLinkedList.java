@@ -8,6 +8,7 @@
 */
 
 import java.util.AbstractList;
+import java.util.Iterator;
 import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
@@ -107,6 +108,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
         return new MyListIterator();
     }
 
+    public Iterator<E> iterator() {
+        return new MyListIterator();
+    }
+
     // MARK: - Iterator
     protected class MyListIterator implements ListIterator<E> {
         MyLinkedList<E>.Node left;
@@ -173,7 +178,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
 
         public int previousIndex() {
-            return this.hasPrevious() ? this.idx - 1 : this.idx;
+            return this.idx - 1;
         }
 
         // MARK: add

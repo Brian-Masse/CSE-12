@@ -187,7 +187,7 @@ public class MyLinkedListCustomTester {
      * @param actual   the actual value of the flag
      */
     private void checkExceptionCorrectness(boolean expected, boolean actual) {
-        assertEquals("Checking Exceptio", expected, actual);
+        assertEquals("Checking Exception", expected, actual);
     }
 
     // MARK: testNullInput
