@@ -20,7 +20,6 @@ import java.util.*;
  * This class contains public test cases for MyListIterator. listLen1 is a
  * linkedlist of length 1 and listLen2 is a linkedlist of length 2.
  */
-
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class MyListIteratorPublicTester {
     private MyLinkedList listLen1, listLen2;

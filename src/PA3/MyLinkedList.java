@@ -104,15 +104,27 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
     }
 
+    /**
+     * Create an empty iterator from the current instance of LinkedList
+     */
     public ListIterator<E> listIterator() {
         return new MyListIterator();
     }
 
+    /**
+     * Create an empty iterator from the current instance of LinkedList
+     */
     public Iterator<E> iterator() {
         return new MyListIterator();
     }
 
     // MARK: - Iterator
+    /**
+     * This class represents a generic Iterator, similar to the one found in
+     * Java
+     * 
+     * It contains standard functions including next, previous, remove, and add.
+     */
     protected class MyListIterator implements ListIterator<E> {
         MyLinkedList<E>.Node left;
         MyLinkedList<E>.Node right;
@@ -122,6 +134,12 @@ public class MyLinkedList<E> extends AbstractList<E> {
         boolean canRemoveOrSet;
 
         // MARK: MyListIterator
+        /**
+         * Empty initializer for Iterator
+         * 
+         * Sets the default iterator position to the start of the linkedList And
+         * the movement direction arbitrarily
+         */
         public MyListIterator() {
             this.left = head;
             this.right = head.next;
@@ -132,15 +150,32 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
 
         // MARK: hasNext / hasPrev
+        /**
+         * Checks whether the next element is valid. Does not include sentinels
+         * 
+         * @return whether the iterator has a next element
+         */
         public boolean hasNext() {
             return (this.right.getElement() != null);
         }
 
+        /**
+         * Checks whether the previous element is valid. Does not include
+         * sentinels
+         * 
+         * @return whether the iterator has a previous element
+         */
         public boolean hasPrevious() {
             return this.left.getElement() != null;
         }
 
         // MARK: next
+        /**
+         * Return the next element in the list when going forward, and move the
+         * iterator forward by one node.
+         * 
+         * @return The element of next node
+         */
         public E next() {
             if (!this.hasNext()) {
                 throw new NoSuchElementException();
@@ -157,6 +192,12 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
 
         // MARK: Prev
+        /**
+         * Return the next element in the list when going backward, and move the
+         * iterator backward by one node.
+         * 
+         * @return The element of previous node
+         */
         public E previous() {
             if (!this.hasPrevious()) {
                 throw new NoSuchElementException();
@@ -173,15 +214,34 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
 
         // MARK: index
+        /**
+         * Return the index of the element that would be returned by a call to
+         * next(). Return the list size if at the end of the list.
+         * 
+         * @return The next index
+         */
         public int nextIndex() {
             return this.idx;
         }
 
+        /**
+         * Return the index of the element that would be returned by a call to
+         * previous(). Return -1 if at the start of the list.
+         * 
+         * @return The previous index
+         */
         public int previousIndex() {
             return this.idx - 1;
         }
 
         // MARK: add
+        /**
+         * Insert the given item into the list immediately before the element
+         * that would be returned by next(). The value of the current index of
+         * the list iterator is increased by one.
+         * 
+         * @param element The element to add
+         */
         public void add(E element) {
             if (element == null) {
                 throw new NullPointerException();
@@ -195,6 +255,12 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
 
         // MARK: set
+        /**
+         * For the node returned by the most recent next/previous call, replace
+         * its value with the new value element.
+         * 
+         * @param element The element to set
+         */
         public void set(E element) {
             if (element == null) {
                 throw new NullPointerException();
@@ -211,6 +277,10 @@ public class MyLinkedList<E> extends AbstractList<E> {
         }
 
         // MARK: remove
+        /**
+         * Remove the last element node returned by the most recent
+         * next/previous call.
+         */
         public void remove() {
             if (!this.canRemoveOrSet) {
                 throw new IllegalStateException();

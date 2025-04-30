@@ -1,11 +1,20 @@
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA4 Write-up
+   
+  This file is for CSE 12 PA4 in Spring 2025,
+*/
+
 import static org.junit.Assert.*;
-
-import java.io.ObjectInputValidation;
-import java.util.LinkedList;
 import java.util.NoSuchElementException;
-
 import org.junit.*;
 
+/**
+ * This class contains public test cases for MyListIterator. listLen1 is a
+ * linkedlist of length 1 and listLen2 is a linkedlist of length 2.
+ */
 public class MyListIteratorCustomTester {
 
     // Defines a generic operation ona linkedList to make function calls easier
@@ -29,7 +38,6 @@ public class MyListIteratorCustomTester {
 
     private MyLinkedList<Integer> integerList;
     private MyLinkedList<Integer>.MyListIterator integerListIterator;
-    private Integer[] intergerArray;
 
     private MyLinkedList<Object> emptyList;
     private MyLinkedList<Object>.MyListIterator emptyListIterator;
@@ -59,11 +67,25 @@ public class MyListIteratorCustomTester {
         return translateObjects;
     }
 
+    // MARK: storeLinkedList
+    /**
+     * Copies a linkedList and stores its size and values into this class to
+     * test
+     * 
+     * @param list the list to store
+     */
     private void storeLinkedList(MyLinkedList list) {
         this.storedList = translateList(list);
         this.storedSize = list.size;
     }
 
+    // MARK: storeIterator
+    /**
+     * Stores the instance variables / other data of an iterator into this class
+     * to test
+     * 
+     * @param iterator the iterator to store
+     */
     private void storeIterator(MyLinkedList.MyListIterator iterator) {
         this.leftElement = iterator.left.getElement();
         this.rightElement = iterator.right.getElement();
@@ -72,6 +94,13 @@ public class MyListIteratorCustomTester {
         this.storedCanRemoveOrSet = iterator.canRemoveOrSet;
     }
 
+    // MARK: vheckIteratorCorrectness
+    /**
+     * Checks if a given Iterator mathces what is stored in this class, by
+     * checking the instance variables, left and right elements, and other data
+     * 
+     * @param iterator the iterator to check
+     */
     private void checkIteratorCorrectness(
             MyLinkedList.MyListIterator iterator) {
         assertEquals("Checking Correct Left Node Element", leftElement,
@@ -118,14 +147,17 @@ public class MyListIteratorCustomTester {
         assertEquals("Checking Exception", expected, actual);
     }
 
-    // MARK: testNullInput
+    // MARK: testExceptionRaised
     /**
-     * Tests inputting a null input to a LinkedList function. It both tests that
-     * an exception was raised, and that the original list was unmodified by the
-     * call
+     * Tests running a function on iterator that raises an exception. It both
+     * tests that an exception was raised, and that the original iterator / list
+     * was unmodified by the call
      * 
-     * @param list      the list to test
-     * @param operation the operation to perform in the try catch block
+     * @param iterator      the iterator to test
+     * @param list          the associated LinkedList to test
+     * @param exceptionType the type of Exception that should be raised by the
+     *                      operation
+     * @param operation     the operation to perform in the try catch block
      */
     public void testExceptionRaised(MyLinkedList.MyListIterator iterator,
             MyLinkedList list, Class<?> exceptionType,
@@ -240,6 +272,12 @@ public class MyListIteratorCustomTester {
     }
 
     // MARK: testCant
+    /**
+     * Tests running operations that depend on the canRemoveOrSet variable on an
+     * iterator when it is set to false.
+     * 
+     * @param operation the operation being tested
+     */
     private void testCant(LinkedListOperation operation) {
         // check that nothing is changed when simply set to false
         this.integerListIterator.canRemoveOrSet = false;
