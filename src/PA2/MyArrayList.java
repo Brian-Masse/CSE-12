@@ -60,7 +60,6 @@ public class MyArrayList<E> implements MyList<E> {
      */
     public MyArrayList(E[] arr) {
         if (arr != null) {
-            // TODO: possibly make this a deep copy?
             this.data = arr;
             this.size = arr.length;
         } else {

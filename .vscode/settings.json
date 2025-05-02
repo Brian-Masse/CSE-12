@@ -1,7 +1,13 @@
 {
   "java.debug.settings.onBuildFailureProceed": true,
 
-  "java.project.sourcePaths": ["src/PA1", "src/PA2", "src/PA3", "src/PA4"],
+  "java.project.sourcePaths": [
+    "src/PA1",
+    "src/PA2",
+    "src/PA3",
+    "src/PA4",
+    "src/tests"
+  ],
   "java.project.outputPath": "bin",
   "java.project.referencedLibraries": [
     "/Users/brianmasse/Developer/Extra/Classes/CSE-12/lib/Checkstyle 10.7.0.jar",

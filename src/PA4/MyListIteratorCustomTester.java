@@ -12,9 +12,9 @@ import java.util.NoSuchElementException;
 import org.junit.*;
 
 /**
- * This class contains public test cases for MyListIterator. listLen1 is a
- * linkedlist of length 1 and listLen2 is a linkedlist of length 2.
+ * This class contains public test cases for MyListIterator.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class MyListIteratorCustomTester {
 
     // Defines a generic operation ona linkedList to make function calls easier
@@ -190,10 +190,8 @@ public class MyListIteratorCustomTester {
     public void setUp() throws Exception {
         // setup integerList
         this.integerList = new MyLinkedList<Integer>();
-        this.intergerArray = new Integer[MyListIteratorCustomTester.integerListSize];
         for (int i = 0; i < MyListIteratorCustomTester.integerListSize; i++) {
             this.integerList.add(i);
-            this.intergerArray[i] = i;
         }
 
         this.integerListIterator = this.integerList.new MyListIterator();

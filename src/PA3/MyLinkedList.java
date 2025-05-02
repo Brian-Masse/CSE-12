@@ -106,6 +106,8 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
     /**
      * Create an empty iterator from the current instance of LinkedList
+     * 
+     * @return new Iterator
      */
     public ListIterator<E> listIterator() {
         return new MyListIterator();
@@ -113,6 +115,8 @@ public class MyLinkedList<E> extends AbstractList<E> {
 
     /**
      * Create an empty iterator from the current instance of LinkedList
+     * 
+     * @return new Iterator
      */
     public Iterator<E> iterator() {
         return new MyListIterator();
@@ -181,7 +185,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
                 throw new NoSuchElementException();
             }
 
-            this.idx += 1;
+            this.idx++;
             this.left = right;
             this.right = right.getNext();
 
@@ -203,7 +207,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
                 throw new NoSuchElementException();
             }
 
-            this.idx -= 1;
+            this.idx--;
             this.right = this.left;
             this.left = left.getPrev();
 
