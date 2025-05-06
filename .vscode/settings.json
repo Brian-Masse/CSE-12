@@ -2,11 +2,12 @@
   "java.debug.settings.onBuildFailureProceed": true,
 
   "java.project.sourcePaths": [
+    "src/tests",
     "src/PA1",
     "src/PA2",
     "src/PA3",
     "src/PA4",
-    "src/tests"
+    "src/PA5"
   ],
   "java.project.outputPath": "bin",
   "java.project.referencedLibraries": [
