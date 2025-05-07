@@ -1,40 +1,56 @@
+// MARK: MyHashSet
 public class MyHashSet<E> {
     public static final Object DEFAULT_OBJECT = new Object();
-    
+
     MyHashMap<E, Object> hashMap;
 
+    // MARK: Initializers
     public MyHashSet() {
-        /* Add your implementation here */
-        // TODO
+        this.hashMap = new MyHashMap<>();
     }
 
     public MyHashSet(int initialCapacity) {
-        /* Add your implementation here */
-        // TODO
+        this.hashMap = new MyHashMap<>(initialCapacity);
     }
 
+    // MARK: Add
     public boolean add(E element) {
-        /* Add your implementation here */
-        return false; // TODO
+        if (element == null) {
+            throw new NullPointerException();
+        }
+
+        boolean containedElement = this.hashMap.get(element) == null;
+
+        this.hashMap.put(element, DEFAULT_OBJECT);
+
+        return containedElement;
     }
 
+    // MARK: remove
     public boolean remove(E element) {
-        /* Add your implementation here */
-        return false; // TODO
+        if (element == null) {
+            throw new NullPointerException();
+        }
+
+        boolean containedElement = this.hashMap.get(element) == null;
+
+        this.hashMap.remove(element);
+
+        return containedElement;
     }
 
+    // MARK: size
     public int size() {
-        /* Add your implementation here */
-        return 0; // TODO
+        return this.hashMap.size();
     }
 
+    // MARK: clear
     public void clear() {
-        /* Add your implementation here */
-        // TODO
+        this.hashMap.clear();
     }
 
+    // MARK: isEmpty
     public boolean isEmpty() {
-        /* Add your implementation here */
-        return false; // TODO
+        return this.hashMap.isEmpty();
     }
 }

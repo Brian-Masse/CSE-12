@@ -20,10 +20,10 @@ public class PublicTester {
     MyHashSet<String> threeElementSet;
 
     /**
-	 * This sets up the test fixture. JUnit invokes this method before
-	 * every testXXX method. The @Before tag tells JUnit to run this method
-	 * before each test.
-	 */
+     * This sets up the test fixture. JUnit invokes this method before every
+     * testXXX method. The @Before tag tells JUnit to run this method before
+     * each test.
+     */
     @Before
     public void setup() throws Exception {
         // Empty map
@@ -32,13 +32,13 @@ public class PublicTester {
         // Map with 3 elements
         threeElementMap = new MyHashMap<String, Integer>();
 
-        MyHashMap<String, Integer>.Node<String, Integer> mapElement1 =  
-            threeElementMap.new Node<String, Integer>("A", 1);
-        MyHashMap<String, Integer>.Node<String, Integer> mapElement2 =  
-            threeElementMap.new Node<String, Integer>("B", 2);
-        MyHashMap<String, Integer>.Node<String, Integer> mapElement3 =  
-            threeElementMap.new Node<String, Integer>("F", 6);
-        
+        MyHashMap<String, Integer>.Node<String, Integer> mapElement1 = threeElementMap.new Node<String, Integer>(
+                "A", 1);
+        MyHashMap<String, Integer>.Node<String, Integer> mapElement2 = threeElementMap.new Node<String, Integer>(
+                "B", 2);
+        MyHashMap<String, Integer>.Node<String, Integer> mapElement3 = threeElementMap.new Node<String, Integer>(
+                "F", 6);
+
         threeElementMap.hashTable[0] = mapElement1;
         threeElementMap.hashTable[1] = mapElement2;
         mapElement1.setNext(mapElement3);
@@ -48,15 +48,15 @@ public class PublicTester {
         // Empty set
         emptySet = new MyHashSet<String>();
 
-        //Set with 3 elements
+        // Set with 3 elements
         threeElementSet = new MyHashSet<String>();
-        
-        MyHashMap<String, Object>.Node<String, Object> setElement1 =  
-            threeElementSet.hashMap.new Node<String, Object>("A", MyHashSet.DEFAULT_OBJECT);
-        MyHashMap<String, Object>.Node<String, Object> setElement2 =  
-            threeElementSet.hashMap.new Node<String, Object>("B", MyHashSet.DEFAULT_OBJECT);
-        MyHashMap<String, Object>.Node<String, Object> setElement3 =  
-            threeElementSet.hashMap.new Node<String, Object>("F", MyHashSet.DEFAULT_OBJECT);
+
+        MyHashMap<String, Object>.Node<String, Object> setElement1 = threeElementSet.hashMap.new Node<String, Object>(
+                "A", MyHashSet.DEFAULT_OBJECT);
+        MyHashMap<String, Object>.Node<String, Object> setElement2 = threeElementSet.hashMap.new Node<String, Object>(
+                "B", MyHashSet.DEFAULT_OBJECT);
+        MyHashMap<String, Object>.Node<String, Object> setElement3 = threeElementSet.hashMap.new Node<String, Object>(
+                "F", MyHashSet.DEFAULT_OBJECT);
 
         threeElementSet.hashMap.hashTable[0] = setElement1;
         threeElementSet.hashMap.hashTable[1] = setElement2;
@@ -73,7 +73,8 @@ public class PublicTester {
     @Test
     public void testMyHashMapDefaultConstructor() {
         MyHashMap<String, Integer> hashMap = new MyHashMap<String, Integer>();
-        assertArrayEquals(new String[]{null, null, null, null, null}, hashMap.hashTable);
+        assertArrayEquals(new String[] { null, null, null, null, null },
+                hashMap.hashTable);
         assertEquals(0, hashMap.size());
         assertEquals(5, hashMap.hashTable.length);
     }
@@ -84,7 +85,8 @@ public class PublicTester {
     @Test
     public void testMyHashMapConstructor() {
         MyHashMap<String, Integer> hashMap = new MyHashMap<String, Integer>(10);
-        assertArrayEquals(new String[]{null, null, null, null, null, null, null, null, null, null}, hashMap.hashTable);
+        assertArrayEquals(new String[] { null, null, null, null, null, null,
+                null, null, null, null }, hashMap.hashTable);
         assertEquals(0, hashMap.size());
         assertEquals(10, hashMap.hashTable.length);
     }
@@ -97,10 +99,13 @@ public class PublicTester {
         int value = threeElementMap.get("A");
 
         // Assert correct state of hash table
-        assertTrue(threeElementMap.hashTable[0].equals(threeElementMap.new Node<String, Integer>("A", 1)));
-        assertTrue(threeElementMap.hashTable[0].getNext().equals(threeElementMap.new Node<String, Integer>("F", 6)));
+        assertTrue(threeElementMap.hashTable[0]
+                .equals(threeElementMap.new Node<String, Integer>("A", 1)));
+        assertTrue(threeElementMap.hashTable[0].getNext()
+                .equals(threeElementMap.new Node<String, Integer>("F", 6)));
         assertNull(threeElementMap.hashTable[0].getNext().getNext());
-        assertTrue(threeElementMap.hashTable[1].equals(threeElementMap.new Node<String, Integer>("B", 2)));
+        assertTrue(threeElementMap.hashTable[1]
+                .equals(threeElementMap.new Node<String, Integer>("B", 2)));
         assertNull(threeElementMap.hashTable[1].getNext());
         assertNull(threeElementMap.hashTable[2]);
         assertNull(threeElementMap.hashTable[3]);
@@ -113,10 +118,13 @@ public class PublicTester {
         value = threeElementMap.get("B");
 
         // Assert correct state of hash table
-        assertTrue(threeElementMap.hashTable[0].equals(threeElementMap.new Node<String, Integer>("A", 1)));
-        assertTrue(threeElementMap.hashTable[0].getNext().equals(threeElementMap.new Node<String, Integer>("F", 6)));
+        assertTrue(threeElementMap.hashTable[0]
+                .equals(threeElementMap.new Node<String, Integer>("A", 1)));
+        assertTrue(threeElementMap.hashTable[0].getNext()
+                .equals(threeElementMap.new Node<String, Integer>("F", 6)));
         assertNull(threeElementMap.hashTable[0].getNext().getNext());
-        assertTrue(threeElementMap.hashTable[1].equals(threeElementMap.new Node<String, Integer>("B", 2)));
+        assertTrue(threeElementMap.hashTable[1]
+                .equals(threeElementMap.new Node<String, Integer>("B", 2)));
         assertNull(threeElementMap.hashTable[1].getNext());
         assertNull(threeElementMap.hashTable[2]);
         assertNull(threeElementMap.hashTable[3]);
@@ -129,10 +137,13 @@ public class PublicTester {
         value = threeElementMap.get("F");
 
         // Assert correct state of hash table
-        assertTrue(threeElementMap.hashTable[0].equals(threeElementMap.new Node<String, Integer>("A", 1)));
-        assertTrue(threeElementMap.hashTable[0].getNext().equals(threeElementMap.new Node<String, Integer>("F", 6)));
+        assertTrue(threeElementMap.hashTable[0]
+                .equals(threeElementMap.new Node<String, Integer>("A", 1)));
+        assertTrue(threeElementMap.hashTable[0].getNext()
+                .equals(threeElementMap.new Node<String, Integer>("F", 6)));
         assertNull(threeElementMap.hashTable[0].getNext().getNext());
-        assertTrue(threeElementMap.hashTable[1].equals(threeElementMap.new Node<String, Integer>("B", 2)));
+        assertTrue(threeElementMap.hashTable[1]
+                .equals(threeElementMap.new Node<String, Integer>("B", 2)));
         assertNull(threeElementMap.hashTable[1].getNext());
         assertNull(threeElementMap.hashTable[2]);
         assertNull(threeElementMap.hashTable[3]);
@@ -151,7 +162,8 @@ public class PublicTester {
         Integer value = emptyMap.put("A", 1);
 
         // Assert correct state of hash table
-        assertTrue(emptyMap.hashTable[0].equals(emptyMap.new Node<String, Integer>("A", 1)));
+        assertTrue(emptyMap.hashTable[0]
+                .equals(emptyMap.new Node<String, Integer>("A", 1)));
         assertNull(emptyMap.hashTable[0].getNext());
         assertNull(emptyMap.hashTable[1]);
         assertNull(emptyMap.hashTable[2]);
@@ -161,13 +173,15 @@ public class PublicTester {
 
         // Assert correct return value
         assertEquals(null, value);
-        
+
         value = emptyMap.put("B", 2);
 
         // Assert correct state of hash table
-        assertTrue(emptyMap.hashTable[0].equals(emptyMap.new Node<String, Integer>("A", 1)));
+        assertTrue(emptyMap.hashTable[0]
+                .equals(emptyMap.new Node<String, Integer>("A", 1)));
         assertNull(emptyMap.hashTable[0].getNext());
-        assertTrue(emptyMap.hashTable[1].equals(emptyMap.new Node<String, Integer>("B", 2)));
+        assertTrue(emptyMap.hashTable[1]
+                .equals(emptyMap.new Node<String, Integer>("B", 2)));
         assertNull(emptyMap.hashTable[1].getNext());
         assertNull(emptyMap.hashTable[2]);
         assertNull(emptyMap.hashTable[3]);
@@ -180,10 +194,13 @@ public class PublicTester {
         value = emptyMap.put("F", 6);
 
         // Assert correct state of hash table
-        assertTrue(emptyMap.hashTable[0].equals(emptyMap.new Node<String, Integer>("A", 1)));
-        assertTrue(emptyMap.hashTable[0].getNext().equals(emptyMap.new Node<String, Integer>("F", 6)));
+        assertTrue(emptyMap.hashTable[0]
+                .equals(emptyMap.new Node<String, Integer>("A", 1)));
+        assertTrue(emptyMap.hashTable[0].getNext()
+                .equals(emptyMap.new Node<String, Integer>("F", 6)));
         assertNull(emptyMap.hashTable[0].getNext().getNext());
-        assertTrue(emptyMap.hashTable[1].equals(emptyMap.new Node<String, Integer>("B", 2)));
+        assertTrue(emptyMap.hashTable[1]
+                .equals(emptyMap.new Node<String, Integer>("B", 2)));
         assertNull(emptyMap.hashTable[1].getNext());
         assertNull(emptyMap.hashTable[2]);
         assertNull(emptyMap.hashTable[3]);
@@ -202,9 +219,11 @@ public class PublicTester {
         int value = threeElementMap.remove("A");
 
         // Assert correct state of hash table
-        assertTrue(threeElementMap.hashTable[0].equals(threeElementMap.new Node<String, Integer>("F", 6)));
+        assertTrue(threeElementMap.hashTable[0]
+                .equals(threeElementMap.new Node<String, Integer>("F", 6)));
         assertNull(threeElementMap.hashTable[0].getNext());
-        assertTrue(threeElementMap.hashTable[1].equals(threeElementMap.new Node<String, Integer>("B", 2)));
+        assertTrue(threeElementMap.hashTable[1]
+                .equals(threeElementMap.new Node<String, Integer>("B", 2)));
         assertNull(threeElementMap.hashTable[1].getNext());
         assertNull(threeElementMap.hashTable[2]);
         assertNull(threeElementMap.hashTable[3]);
@@ -217,7 +236,8 @@ public class PublicTester {
         value = threeElementMap.remove("B");
 
         // Assert correct state of hash table
-        assertTrue(threeElementMap.hashTable[0].equals(threeElementMap.new Node<String, Integer>("F", 6)));
+        assertTrue(threeElementMap.hashTable[0]
+                .equals(threeElementMap.new Node<String, Integer>("F", 6)));
         assertNull(threeElementMap.hashTable[0].getNext());
         assertNull(threeElementMap.hashTable[1]);
         assertNull(threeElementMap.hashTable[2]);
@@ -270,7 +290,8 @@ public class PublicTester {
     @Test
     public void testMyHashMapClear() {
         threeElementMap.clear();
-        assertArrayEquals(new String[]{null, null, null, null, null}, threeElementMap.hashTable);
+        assertArrayEquals(new String[] { null, null, null, null, null },
+                threeElementMap.hashTable);
         assertEquals(0, threeElementMap.size());
     }
 
@@ -288,14 +309,21 @@ public class PublicTester {
      */
     @Test
     public void testMyHashMapExpandCapacity() {
+
+        MyHashMap.printMap(threeElementMap);
+
         threeElementMap.expandCapacity();
-        assertTrue(threeElementMap.hashTable[0].equals(threeElementMap.new Node<String, Integer>("F", 6)));
+
+        assertTrue(threeElementMap.hashTable[0]
+                .equals(threeElementMap.new Node<String, Integer>("F", 6)));
         assertNull(threeElementMap.hashTable[1]);
         assertNull(threeElementMap.hashTable[2]);
         assertNull(threeElementMap.hashTable[3]);
         assertNull(threeElementMap.hashTable[4]);
-        assertTrue(threeElementMap.hashTable[5].equals(threeElementMap.new Node<String, Integer>("A", 1)));
-        assertTrue(threeElementMap.hashTable[6].equals(threeElementMap.new Node<String, Integer>("B", 2)));
+        assertTrue(threeElementMap.hashTable[5]
+                .equals(threeElementMap.new Node<String, Integer>("A", 1)));
+        assertTrue(threeElementMap.hashTable[6]
+                .equals(threeElementMap.new Node<String, Integer>("B", 2)));
         assertNull(threeElementMap.hashTable[7]);
         assertNull(threeElementMap.hashTable[8]);
         assertNull(threeElementMap.hashTable[9]);
@@ -326,7 +354,8 @@ public class PublicTester {
     @Test
     public void testMyHashSetDefaultConstructor() {
         MyHashSet<String> hashSet = new MyHashSet<String>();
-        assertArrayEquals(new String[]{null, null, null, null, null}, hashSet.hashMap.hashTable);
+        assertArrayEquals(new String[] { null, null, null, null, null },
+                hashSet.hashMap.hashTable);
         assertEquals(5, hashSet.hashMap.getCapacity());
         assertEquals(0, hashSet.size());
     }
@@ -337,7 +366,8 @@ public class PublicTester {
     @Test
     public void testMyHashSetConstructor() {
         MyHashSet<String> hashSet = new MyHashSet<String>(10);
-        assertArrayEquals(new String[]{null, null, null, null, null, null, null, null, null, null}, hashSet.hashMap.hashTable);
+        assertArrayEquals(new String[] { null, null, null, null, null, null,
+                null, null, null, null }, hashSet.hashMap.hashTable);
         assertEquals(10, hashSet.hashMap.getCapacity());
         assertEquals(0, hashSet.size());
     }
@@ -350,7 +380,9 @@ public class PublicTester {
         boolean success = emptySet.add("A");
 
         // Assert correct state of hash table
-        assertTrue(emptySet.hashMap.hashTable[0].equals(emptySet.hashMap.new Node<String, Object>("A", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(emptySet.hashMap.hashTable[0]
+                .equals(emptySet.hashMap.new Node<String, Object>("A",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(emptySet.hashMap.hashTable[0].getNext());
         assertNull(emptySet.hashMap.hashTable[1]);
         assertNull(emptySet.hashMap.hashTable[2]);
@@ -364,9 +396,13 @@ public class PublicTester {
         success = emptySet.add("B");
 
         // Assert correct state of hash table
-        assertTrue(emptySet.hashMap.hashTable[0].equals(emptySet.hashMap.new Node<String, Object>("A", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(emptySet.hashMap.hashTable[0]
+                .equals(emptySet.hashMap.new Node<String, Object>("A",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(emptySet.hashMap.hashTable[0].getNext());
-        assertTrue(emptySet.hashMap.hashTable[1].equals(emptySet.hashMap.new Node<String, Object>("B", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(emptySet.hashMap.hashTable[1]
+                .equals(emptySet.hashMap.new Node<String, Object>("B",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(emptySet.hashMap.hashTable[1].getNext());
         assertNull(emptySet.hashMap.hashTable[2]);
         assertNull(emptySet.hashMap.hashTable[3]);
@@ -379,10 +415,16 @@ public class PublicTester {
         success = emptySet.add("F");
 
         // Assert correct state of hash table
-        assertTrue(emptySet.hashMap.hashTable[0].equals(emptySet.hashMap.new Node<String, Object>("A", MyHashSet.DEFAULT_OBJECT)));
-        assertTrue(emptySet.hashMap.hashTable[0].getNext().equals(emptySet.hashMap.new Node<String, Object>("F", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(emptySet.hashMap.hashTable[0]
+                .equals(emptySet.hashMap.new Node<String, Object>("A",
+                        MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(emptySet.hashMap.hashTable[0].getNext()
+                .equals(emptySet.hashMap.new Node<String, Object>("F",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(emptySet.hashMap.hashTable[0].getNext().getNext());
-        assertTrue(emptySet.hashMap.hashTable[1].equals(emptySet.hashMap.new Node<String, Object>("B", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(emptySet.hashMap.hashTable[1]
+                .equals(emptySet.hashMap.new Node<String, Object>("B",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(emptySet.hashMap.hashTable[1].getNext());
         assertNull(emptySet.hashMap.hashTable[2]);
         assertNull(emptySet.hashMap.hashTable[3]);
@@ -401,9 +443,13 @@ public class PublicTester {
         boolean success = threeElementSet.remove("A");
 
         // Assert correct state of hash table
-        assertTrue(threeElementSet.hashMap.hashTable[0].equals(threeElementSet.hashMap.new Node<String, Object>("F", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(threeElementSet.hashMap.hashTable[0]
+                .equals(threeElementSet.hashMap.new Node<String, Object>("F",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(threeElementSet.hashMap.hashTable[0].getNext());
-        assertTrue(threeElementSet.hashMap.hashTable[1].equals(threeElementSet.hashMap.new Node<String, Object>("B", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(threeElementSet.hashMap.hashTable[1]
+                .equals(threeElementSet.hashMap.new Node<String, Object>("B",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(threeElementSet.hashMap.hashTable[1].getNext());
         assertNull(threeElementSet.hashMap.hashTable[2]);
         assertNull(threeElementSet.hashMap.hashTable[3]);
@@ -416,7 +462,9 @@ public class PublicTester {
         success = threeElementSet.remove("B");
 
         // Assert correct state of hash table
-        assertTrue(threeElementSet.hashMap.hashTable[0].equals(threeElementSet.hashMap.new Node<String, Object>("F", MyHashSet.DEFAULT_OBJECT)));
+        assertTrue(threeElementSet.hashMap.hashTable[0]
+                .equals(threeElementSet.hashMap.new Node<String, Object>("F",
+                        MyHashSet.DEFAULT_OBJECT)));
         assertNull(threeElementSet.hashMap.hashTable[0].getNext());
         assertNull(threeElementSet.hashMap.hashTable[1]);
         assertNull(threeElementSet.hashMap.hashTable[2]);
@@ -456,7 +504,8 @@ public class PublicTester {
     @Test
     public void testMyHashSetClear() {
         threeElementSet.clear();
-        assertArrayEquals(new String[]{null, null, null, null, null}, threeElementSet.hashMap.hashTable);
+        assertArrayEquals(new String[] { null, null, null, null, null },
+                threeElementSet.hashMap.hashTable);
         assertEquals(0, threeElementSet.size());
     }
 

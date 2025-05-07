@@ -1,6 +1,24 @@
 // MARK: MyHashMap
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class MyHashMap<K, V> {
+    public static void printMap(MyHashMap map) {
+        for (int i = 0; i < map.hashTable.length; i++) {
+            MyHashMap.Node currentNode = map.hashTable[i];
+
+            if (currentNode == null) {
+                System.out.println(i + ": null");
+
+            } else {
+                while (currentNode != null) {
+                    System.out.println(i + ": key: " + currentNode.getKey()
+                            + ", value: " + currentNode.getValue());
+
+                    currentNode = currentNode.getNext();
+                }
+            }
+        }
+    }
+
     private static final int DEFAULT_CAPACITY = 5;
     private static final double LOAD_FACTOR = 0.8;
     private static final int EXPAND_CAPACITY_RATIO = 2;
@@ -20,7 +38,7 @@ public class MyHashMap<K, V> {
             throw new IllegalArgumentException();
         }
 
-        this.size = initialCapacity;
+        this.size = 0;
         this.hashTable = new Node[initialCapacity];
     }
 
@@ -68,6 +86,7 @@ public class MyHashMap<K, V> {
         }
 
         // if there is a collision, add the new node to the end of the list
+        // TODO: Dont add to the end of the list if the value is already there
         while (currentNode.getNext() != null) {
             currentNode = currentNode.getNext();
         }
@@ -146,13 +165,17 @@ public class MyHashMap<K, V> {
 
             // if the value at the table is full, go through the list and
             // re-hash
-            while (currentNode.getValue() != null) {
+            while (currentNode != null) {
                 K key = (K) currentNode.getKey();
                 int newHashCode = this.getHash(key, newCapacity);
 
                 newHashTable[newHashCode] = currentNode;
+
+                currentNode = currentNode.getNext();
             }
         }
+
+        this.hashTable = newHashTable;
     }
 
     // MARK: getHash
