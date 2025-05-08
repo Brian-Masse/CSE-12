@@ -310,8 +310,6 @@ public class PublicTester {
     @Test
     public void testMyHashMapExpandCapacity() {
 
-        MyHashMap.printMap(threeElementMap);
-
         threeElementMap.expandCapacity();
 
         assertTrue(threeElementMap.hashTable[0]

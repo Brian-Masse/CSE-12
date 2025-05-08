@@ -19,9 +19,8 @@ public class MyHashSet<E> {
             throw new NullPointerException();
         }
 
-        boolean containedElement = this.hashMap.get(element) == null;
-
-        this.hashMap.put(element, DEFAULT_OBJECT);
+        boolean containedElement = this.hashMap.put(element,
+                DEFAULT_OBJECT) == null;
 
         return containedElement;
     }

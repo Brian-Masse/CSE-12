@@ -73,9 +73,17 @@ public class MyHashMap<K, V> {
             throw new NullPointerException();
         }
 
+        boolean containsKey = this.get(key) != null;
+
         // check that the hashmap is not at capacity
         if (this.getCapacity() * LOAD_FACTOR <= this.size) {
             this.expandCapacity();
+        }
+
+        MyHashMap.printMap(this);
+
+        if (!containsKey) {
+            this.size += 1;
         }
 
         // get current data
@@ -86,24 +94,26 @@ public class MyHashMap<K, V> {
         // if the value at key is empty, store the new node
         if (currentNode == null) {
             this.hashTable[hashCode] = newNode;
-            this.size += 1;
             return null;
         }
 
         // if there is a collision, add the new node to the end of the list
         // if the key already exists in the list, replace its value
-        while (currentNode.getNext() != null) {
+        while (currentNode != null) {
             if (currentNode.getKey().equals(key)) {
                 V previousValue = (V) currentNode.getValue();
                 currentNode.setValue(value);
                 return previousValue;
             }
 
+            if (currentNode.getNext() == null) {
+                currentNode.setNext(newNode);
+                break;
+            }
+
             currentNode = currentNode.getNext();
         }
 
-        this.size += 1;
-        currentNode.setNext(newNode);
         return null;
     }
 
@@ -189,7 +199,9 @@ public class MyHashMap<K, V> {
                 K key = (K) currentNode.getKey();
                 int newHashCode = this.getHash(key, newCapacity);
 
-                newHashTable[newHashCode] = currentNode;
+                Node nodeCopy = new Node(currentNode.getKey(),
+                        currentNode.getValue());
+                newHashTable[newHashCode] = nodeCopy;
 
                 currentNode = currentNode.getNext();
             }
