@@ -56,11 +56,15 @@ public class MyHashMap<K, V> {
         }
 
         // if there is a linked list, traverse it to the end
-        while (currentNode.getNext() != null) {
+        while (currentNode != null) {
+            if (currentNode.getKey().equals(key)) {
+                return (V) currentNode.getValue();
+            }
+
             currentNode = currentNode.getNext();
         }
 
-        return (V) currentNode.getValue();
+        return null;
     }
 
     // MARK: Put
@@ -70,7 +74,7 @@ public class MyHashMap<K, V> {
         }
 
         // check that the hashmap is not at capacity
-        if (this.getCapacity() * LOAD_FACTOR >= this.size) {
+        if (this.getCapacity() * LOAD_FACTOR <= this.size) {
             this.expandCapacity();
         }
 
@@ -82,17 +86,25 @@ public class MyHashMap<K, V> {
         // if the value at key is empty, store the new node
         if (currentNode == null) {
             this.hashTable[hashCode] = newNode;
+            this.size += 1;
             return null;
         }
 
         // if there is a collision, add the new node to the end of the list
-        // TODO: Dont add to the end of the list if the value is already there
+        // if the key already exists in the list, replace its value
         while (currentNode.getNext() != null) {
+            if (currentNode.getKey().equals(key)) {
+                V previousValue = (V) currentNode.getValue();
+                currentNode.setValue(value);
+                return previousValue;
+            }
+
             currentNode = currentNode.getNext();
         }
 
+        this.size += 1;
         currentNode.setNext(newNode);
-        return currentNode.getValue();
+        return null;
     }
 
     // MARK: remove
@@ -110,21 +122,28 @@ public class MyHashMap<K, V> {
         }
 
         // if there is only one value, remove it, and return its value
-        if (currentNode.getNext() == null) {
-            this.hashTable[hashCode] = null;
+        if (currentNode.getKey().equals(key)) {
+            this.hashTable[hashCode] = currentNode.getNext();
+            this.size -= 1;
             return (V) currentNode.getValue();
         }
 
-        // if there are multiple values, traverse to the end of the list, and
-        // remove it
-        while (currentNode.getNext().getNext() != null) {
+        // if there are multiple values, find the key and remove it
+        while (currentNode.getNext() != null) {
+            if (currentNode.getNext().getKey().equals(key)) {
+
+                V storedValue = (V) currentNode.getNext().getValue();
+                Node nextValue = currentNode.getNext().getNext();
+                currentNode.setNext(nextValue);
+
+                this.size -= 1;
+
+                return storedValue;
+            }
             currentNode = currentNode.getNext();
         }
 
-        V storedValue = (V) currentNode.getNext().getValue();
-        currentNode.setNext(null);
-        return storedValue;
-
+        return null;
     }
 
     // MARK: size
@@ -142,6 +161,7 @@ public class MyHashMap<K, V> {
         for (int i = 0; i < this.getCapacity(); i++) {
             this.hashTable[i] = null;
         }
+        this.size = 0;
     }
 
     // MARK: isEmpty

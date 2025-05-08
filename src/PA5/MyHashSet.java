@@ -32,9 +32,7 @@ public class MyHashSet<E> {
             throw new NullPointerException();
         }
 
-        boolean containedElement = this.hashMap.get(element) == null;
-
-        this.hashMap.remove(element);
+        boolean containedElement = this.hashMap.remove(element) != null;
 
         return containedElement;
     }
