@@ -1,15 +1,12 @@
-/*
- * Name: Casey Hild
- * Email: child@ucsd.edu
- * PID: A16953257
- * Sources Used: JDK 17 Doc
- *
- * IMPORTANT: Do not change the method headers. Your tests will be run against
- * good and bad implementations of Student/Course/Sanctuary. You will only
- * receive points if your test passes when run on a good implementation and
- * fails for the corresponding bad implementation.
- */
 
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA4 Write-up
+   
+  This file is for CSE 12 PA4 in Spring 2025,
+*/
 import static org.junit.Assert.*;
 import org.junit.*;
 
@@ -18,15 +15,18 @@ import org.junit.*;
  */
 public class CustomTester {
 
+    // Defines a generic operation on a HashMap to make function calls easier
     @FunctionalInterface
     interface HashMapOperation {
         void execute(MyHashMap map);
     }
 
+    // stored vaules
     private MyHashMap.Node[][] storedHashMap;
     private int storedHashCapacity;
     private int storedHashSize;
 
+    // sample HashMaps / sets
     private MyHashMap<String, Integer> fullMap;
     private MyHashMap<String, Integer> emptyMap;
     private MyHashMap<String, Integer> fullResizedMap;
@@ -34,6 +34,18 @@ public class CustomTester {
     private MyHashSet<String> fullSet;
     private MyHashSet<String> emptySet;
 
+    // MARK: static vars
+    private static final int fullResizedSize = 10;
+    private static final int fullMapSize = 4;
+    private static final int fullSetSize = 3;
+
+    // MARK: printTranslatedHashMap
+    /**
+     * Takes a 2D representation of a HashMap and prints it in a human readable
+     * format
+     * 
+     * @param map the map to print
+     */
     private void printTranslatedHashMap(MyHashMap.Node[][] map) {
         int length = map.length;
         System.out.println("----");
@@ -61,6 +73,13 @@ public class CustomTester {
 
     }
 
+    // MARK: translateHashMap
+    /**
+     * Translates the HashMap datastructure into a 2D array
+     * 
+     * @param hashMap the map to translate
+     * @return the translated map
+     */
     private MyHashMap.Node[][] translateHashMap(MyHashMap hashMap) {
         int size = hashMap.size;
         int capacity = hashMap.hashTable.length;
@@ -92,12 +111,27 @@ public class CustomTester {
         return translatedMap;
     }
 
+    // MARK: storeHashMap
+    /**
+     * Stores the values associated with a HashMap data type to be used when
+     * checking the correctness of a map later
+     * 
+     * @param map the map to store
+     */
     private void storeHashMap(MyHashMap map) {
         this.storedHashMap = translateHashMap(map);
         this.storedHashSize = map.size;
         this.storedHashCapacity = map.hashTable.length;
     }
 
+    // MARK: checkHashMap
+    /**
+     * Checks whether a given HashMap matches the values stored in this class.
+     * Specifically checks size, capacity, and the values of the map are all
+     * correct
+     * 
+     * @param map the map to check
+     */
     private void checkHashMap(MyHashMap map) {
         MyHashMap.Node[][] translatedMap = this.translateHashMap(map);
 
@@ -118,7 +152,7 @@ public class CustomTester {
 
             int j = 0;
             while (this.storedHashMap[i][j] != null) {
-                boolean nodesEqual = this.storedHashMap[i][j]
+                boolean nodesEqual = storedHashMap[i][j]
                         .equals(translatedMap[i][j]);
                 assertTrue(msg, nodesEqual);
 
@@ -127,7 +161,16 @@ public class CustomTester {
         }
     }
 
-    public void testExceptionRaised(MyHashMap map, Class<?> exceptionType,
+    // MARK: testExceptionRaised
+    /**
+     * Tests that a generic function that should raise an exception, does raise
+     * the correct type of exception
+     * 
+     * @param map           the map to perform the function on
+     * @param exceptionType the expected type of exception the function raises
+     * @param operation     the function to perform on the map
+     */
+    private void testExceptionRaised(MyHashMap map, Class<?> exceptionType,
             HashMapOperation operation) {
         boolean caughtException = false;
         this.storeHashMap(map);
@@ -145,12 +188,12 @@ public class CustomTester {
         this.checkHashMap(map);
     }
 
+    // MARK: Before
     /**
      * This sets up the test fixture. JUnit invokes this method before every
      * testXXX method. The @Before tag tells JUnit to run this method before
      * each test.
      */
-    // MARK: Before
     @Before
     public void setup() {
         // setup full map
@@ -169,7 +212,7 @@ public class CustomTester {
         fullMap.hashTable[2] = element3;
         element1.setNext(element4);
 
-        fullMap.size = 4;
+        fullMap.size = fullMapSize;
 
         // setup fullResizedMap
         fullResizedMap = new MyHashMap<>(10);
@@ -178,7 +221,7 @@ public class CustomTester {
         fullResizedMap.hashTable[6] = element2;
         fullResizedMap.hashTable[7] = element3;
 
-        fullResizedMap.size = 4;
+        fullResizedMap.size = fullMapSize;
 
         // setup emptyMap
         emptyMap = new MyHashMap<>();
@@ -197,7 +240,7 @@ public class CustomTester {
         fullSet.hashMap.hashTable[1] = setElement2;
         setElement1.setNext(setElement3);
 
-        fullSet.hashMap.size = 3;
+        fullSet.hashMap.size = fullSetSize;
 
         // setup emptySet
         emptySet = new MyHashSet<>();
@@ -294,7 +337,7 @@ public class CustomTester {
     public void testMyHashMapPutKeyAlreadyExists() {
         // check trivial put
         this.storeHashMap(fullResizedMap);
-        this.storedHashCapacity = 10;
+        this.storedHashCapacity = fullResizedSize;
         int result = fullMap.put("A", 1);
 
         printTranslatedHashMap(storedHashMap);
@@ -306,26 +349,26 @@ public class CustomTester {
 
         // check puts for key at the end of a linked list
         MyHashMap<String, Integer>.Node<String, Integer> newNode = fullMap.new Node<String, Integer>(
-                "F", 20);
+                "F", fullResizedSize);
         this.storeHashMap(fullMap);
         this.storedHashMap[0][0] = newNode;
-        result = fullMap.put("F", 20);
+        result = fullMap.put("F", fullResizedSize);
 
         assertEquals("Checking correct return", 6, result);
         this.checkHashMap(fullMap);
 
         // check puts for key at the beginning of a linked list
-        newNode = fullMap.new Node<String, Integer>("A", 21);
+        newNode = fullMap.new Node<String, Integer>("A", fullResizedSize);
         this.storedHashMap[5][0] = newNode;
-        result = fullMap.put("A", 21);
+        result = fullMap.put("A", fullResizedSize);
 
         assertEquals("Checking correct return", 1, result);
         this.checkHashMap(fullMap);
 
         // check puts for key not in linked list
-        newNode = fullMap.new Node<String, Integer>("C", 22);
+        newNode = fullMap.new Node<String, Integer>("C", fullResizedSize);
         this.storedHashMap[7][0] = newNode;
-        result = fullMap.put("C", 22);
+        result = fullMap.put("C", fullResizedSize);
 
         assertEquals("Checking correct return", 3, result);
         this.checkHashMap(fullMap);
@@ -375,15 +418,15 @@ public class CustomTester {
     public void testMyHashMapGetHashNullKey() {
         // test getting hash for an empty map
         this.testExceptionRaised(emptyMap, NullPointerException.class,
-                (map) -> map.getHash(null, 10));
+                (map) -> map.getHash(null, fullResizedSize));
 
         // test getting hash for a full map
         this.testExceptionRaised(fullMap, NullPointerException.class,
-                (map) -> map.getHash(null, 10));
+                (map) -> map.getHash(null, fullResizedSize));
 
         // test getting hash with invalid capacity
         this.testExceptionRaised(fullMap, NullPointerException.class,
-                (map) -> map.getHash(null, -10));
+                (map) -> map.getHash(null, -fullResizedSize));
     }
 
     // ----------------MyHashSet class----------------
