@@ -288,9 +288,9 @@ public class MyHashMap<K, V> {
      * A Node class that holds (key, value) pairs and references to the next
      * node in the linked list
      */
-    protected class Node<K, V> {
-        K key;
-        V value;
+    protected class Node<Key, Value> {
+        Key key;
+        Value value;
         Node next;
 
         /**
@@ -299,7 +299,7 @@ public class MyHashMap<K, V> {
          * @param key   key to store in this node
          * @param value value to store in this node
          */
-        public Node(K key, V value) {
+        public Node(Key key, Value value) {
             this.key = key;
             this.value = value;
             this.next = null;
@@ -328,7 +328,7 @@ public class MyHashMap<K, V> {
          * 
          * @return this node's key
          */
-        public K getKey() {
+        public Key getKey() {
             return this.key;
         }
 
@@ -337,7 +337,7 @@ public class MyHashMap<K, V> {
          * 
          * @param key the new key
          */
-        public void setKey(K key) {
+        public void setKey(Key key) {
             this.key = key;
         }
 
@@ -346,7 +346,7 @@ public class MyHashMap<K, V> {
          * 
          * @return this node's value
          */
-        public V getValue() {
+        public Value getValue() {
             return this.value;
         }
 
@@ -355,7 +355,7 @@ public class MyHashMap<K, V> {
          * 
          * @param value the new value
          */
-        public void setValue(V value) {
+        public void setValue(Value value) {
             this.value = value;
         }
 
@@ -365,7 +365,7 @@ public class MyHashMap<K, V> {
          * @param other the other node to check equality with
          * @return whether or not this node is equal to the other node
          */
-        public boolean equals(Node<K, V> other) {
+        public boolean equals(Node<Key, Value> other) {
             return this.key.equals(other.key) && this.value.equals(other.value);
         }
     }

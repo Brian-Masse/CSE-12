@@ -13,6 +13,7 @@ import org.junit.*;
 /**
  * The custom tester for PA5, which covers some basic test cases.
  */
+@SuppressWarnings({ "rawtypes", "unchecked" })
 public class CustomTester {
 
     // Defines a generic operation on a HashMap to make function calls easier
