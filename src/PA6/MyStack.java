@@ -1,6 +1,8 @@
 /**
  * This class implements the Stack ADT using a MyDeque instance variable called
  * theStack.
+ * 
+ * The implementation uses the back of the queue as the top of the stack
  */
 public class MyStack<E> implements StackInterface<E> {
     MyDeque<E> theStack;
@@ -8,10 +10,11 @@ public class MyStack<E> implements StackInterface<E> {
     /**
      * Constructor to create new MyStack that holds a MyDeque.
      *
-     * @param initialCapacity The max amount of elements this data structure
-     *                        can hold.
+     * @param initialCapacity The max amount of elements this data structure can
+     *                        hold.
      */
     public MyStack(int initialCapacity) {
+        this.theStack = new MyDeque(initialCapacity);
     }
 
     /**
@@ -21,7 +24,7 @@ public class MyStack<E> implements StackInterface<E> {
      */
     @Override
     public boolean empty() {
-        return false;
+        return this.theStack.size() == 0;
     }
 
     /**
@@ -31,17 +34,18 @@ public class MyStack<E> implements StackInterface<E> {
      */
     @Override
     public void push(E element) {
+        this.theStack.addLast(element);
     }
 
     /**
-     * Removes the element at the top of this StackInterface.
-     * Returns the element removed, or null if there was no such element.
+     * Removes the element at the top of this StackInterface. Returns the
+     * element removed, or null if there was no such element.
      *
      * @return the element removed, or null if the size was zero.
      */
     @Override
     public E pop() {
-        return null;
+        return this.theStack.removeLast();
     }
 
     /**
@@ -52,7 +56,7 @@ public class MyStack<E> implements StackInterface<E> {
      */
     @Override
     public E peek() {
-        return null;
+        return this.theStack.peekLast();
     }
 
     /**
