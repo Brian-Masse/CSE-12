@@ -1,3 +1,12 @@
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA6 Write-up
+   
+  This file is for CSE 12 PA6 in Spring 2025,
+*/
+
 /**
  * This class implements the Queue ADT using a MyDeque instance variable called
  * theStack.
