@@ -1,3 +1,4 @@
+
 /**
  * This file contains some public tests (visible on Gradescope)
  * Use this as a guide to write tests to verify your MyDeque, MyStack, and
@@ -11,18 +12,20 @@ import static org.junit.Assert.*;
 /**
  * This class contains public test cases for MyDeque, MyStack, and MyQueue
  */
-public class PublicTester {
+public class DequePublicTester {
     private static final double EPSILON = 0.0001d;
+
     /**
      * Helper method to initialize all instance variables of MyDeque
+     * 
      * @param deque The deque to initialize
-     * @param data The data array
-     * @param size The value for size
+     * @param data  The data array
+     * @param size  The value for size
      * @param front The value for front
-     * @param rear The value for rear
+     * @param rear  The value for rear
      */
     static void initDeque(MyDeque<Integer> deque, Object[] data, int size,
-                          int front, int rear) {
+            int front, int rear) {
         deque.data = data;
         deque.size = size;
         deque.front = front;
@@ -46,10 +49,10 @@ public class PublicTester {
     @Test
     public void testExpandCapacity() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {5, 6, 1, null, null, null, null, null, null, null};
-        Integer[] finalOrdering = {5, 6, 1, null, null, null, null, null,
+        Integer[] orig = { 5, 6, 1, null, null, null, null, null, null, null };
+        Integer[] finalOrdering = { 5, 6, 1, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null,
-                null, null};
+                null };
         initDeque(deque, orig, 3, 0, 2);
 
         deque.expandCapacity();
@@ -65,13 +68,13 @@ public class PublicTester {
     }
 
     /**
-     * Test addFirst to deque containing several elements in the middle
-     * of the array
+     * Test addFirst to deque containing several elements in the middle of the
+     * array
      */
     @Test
     public void testAddFirst() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {null, null, null, 4, 5, 6, null, null, null, null};
+        Integer[] orig = { null, null, null, 4, 5, 6, null, null, null, null };
         initDeque(deque, orig, 3, 3, 5);
 
         deque.addFirst(6);
@@ -79,28 +82,25 @@ public class PublicTester {
         assertEquals("Capacity should not change if deque not full", 10,
                 deque.data.length);
         assertEquals("Should increment size", 4, deque.size);
-        assertEquals("Front should move one index when inserting into " +
-                "non-empty deque", 2, deque.front);
+        assertEquals("Front should move one index when inserting into "
+                + "non-empty deque", 2, deque.front);
         assertEquals("Rear shouldn't change when calling addFirst", 5,
                 deque.rear);
-        assertEquals("6 should have been inserted into index 2",
-                6, deque.data[2]);
-        assertEquals("Index 3 should not have changed", 4,
-                deque.data[3]);
-        assertEquals("Index 4 should not have changed",
-                5, deque.data[4]);
-        assertEquals("Index 5 should not have changed", 6,
-                deque.data[5]);
+        assertEquals("6 should have been inserted into index 2", 6,
+                deque.data[2]);
+        assertEquals("Index 3 should not have changed", 4, deque.data[3]);
+        assertEquals("Index 4 should not have changed", 5, deque.data[4]);
+        assertEquals("Index 5 should not have changed", 6, deque.data[5]);
     }
 
     /**
-     * Test addLast to deque containing several elements in the middle
-     * of the array
+     * Test addLast to deque containing several elements in the middle of the
+     * array
      */
     @Test
     public void testAddLast() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {null, null, 4, 5, 1, null, null, null, null, null};
+        Integer[] orig = { null, null, 4, 5, 1, null, null, null, null, null };
         initDeque(deque, orig, 3, 2, 4);
 
         deque.addLast(-1);
@@ -110,26 +110,23 @@ public class PublicTester {
         assertEquals("Should increment size", 4, deque.size);
         assertEquals("Front shouldn't change when called addLast", 2,
                 deque.front);
-        assertEquals("Rear should move one index when inserting into " +
-                "non-empty deque", 5, deque.rear);
-        assertEquals("-1 should have been inserted into index 5",
-                -1, deque.data[5]);
-        assertEquals("Index 2 should not have changed", 4,
-                deque.data[2]);
-        assertEquals("Index 3 should not have changed", 5,
-                deque.data[3]);
-        assertEquals("Index 4 should not have changed", 1,
-                deque.data[4]);
+        assertEquals("Rear should move one index when inserting into "
+                + "non-empty deque", 5, deque.rear);
+        assertEquals("-1 should have been inserted into index 5", -1,
+                deque.data[5]);
+        assertEquals("Index 2 should not have changed", 4, deque.data[2]);
+        assertEquals("Index 3 should not have changed", 5, deque.data[3]);
+        assertEquals("Index 4 should not have changed", 1, deque.data[4]);
     }
 
     /**
-     * Test removeFirst from deque containing several elements in the middle
-     * of the array
+     * Test removeFirst from deque containing several elements in the middle of
+     * the array
      */
     @Test
     public void testRemoveFirst() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {null, 3, 4, 1, null, null, null, null, null, null};
+        Integer[] orig = { null, 3, 4, 1, null, null, null, null, null, null };
         initDeque(deque, orig, 3, 1, 3);
 
         assertEquals("Element removed should be returned", 3,
@@ -138,25 +135,23 @@ public class PublicTester {
         assertEquals("Array length shouldn't be changed", 10,
                 deque.data.length);
         assertEquals("Size should decrement", 2, deque.size);
-        assertEquals("Front should move one index after removing from " +
-                "non-empty deque", 2, deque.front);
+        assertEquals("Front should move one index after removing from "
+                + "non-empty deque", 2, deque.front);
         assertEquals("Rear should not change after calling removeFirst", 3,
                 deque.rear);
-        assertEquals("Index 2 should remain unchanged", 4,
-                deque.data[2]);
-        assertEquals("Index 3 should remain unchanged", 1,
-                deque.data[3]);
+        assertEquals("Index 2 should remain unchanged", 4, deque.data[2]);
+        assertEquals("Index 3 should remain unchanged", 1, deque.data[3]);
         assertNull("Index 1 should have been set to null", deque.data[1]);
     }
 
     /**
-     * Test removeLast from deque containing several elements in the middle
-     * of the array
+     * Test removeLast from deque containing several elements in the middle of
+     * the array
      */
     @Test
     public void testRemoveLast() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {null, 3, 4, 1, null, null, null, null, null, null};
+        Integer[] orig = { null, 3, 4, 1, null, null, null, null, null, null };
         initDeque(deque, orig, 3, 1, 3);
 
         assertEquals("Element removed should be returned", 1,
@@ -167,29 +162,26 @@ public class PublicTester {
         assertEquals("Size should decrement", 2, deque.size);
         assertEquals("Front should not change after calling removeLast", 1,
                 deque.front);
-        assertEquals("Rear should move one index after removing from " +
-                "non-empty deque", 2, deque.rear);
-        assertEquals("Index 1 should remain unchanged", 3,
-                deque.data[1]);
-        assertEquals("Index 2 should remain unchanged", 4,
-                deque.data[2]);
+        assertEquals("Rear should move one index after removing from "
+                + "non-empty deque", 2, deque.rear);
+        assertEquals("Index 1 should remain unchanged", 3, deque.data[1]);
+        assertEquals("Index 2 should remain unchanged", 4, deque.data[2]);
         assertNull("Index 3 should have been set to null", deque.data[3]);
     }
 
     /**
-     * Test peekFirst from deque containing several elements in the middle
-     * of the array
+     * Test peekFirst from deque containing several elements in the middle of
+     * the array
      */
     @Test
     public void testPeekFirst() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {23, 5, 1, null, null, null, null, null, null,
-                null};
-        Integer[] finalOrdering = {23, 5, 1};
+        Integer[] orig = { 23, 5, 1, null, null, null, null, null, null, null };
+        Integer[] finalOrdering = { 23, 5, 1 };
         initDeque(deque, orig, 3, 0, 2);
 
-        assertEquals("Value at front should be returned",
-                Integer.valueOf(23), deque.peekFirst());
+        assertEquals("Value at front should be returned", Integer.valueOf(23),
+                deque.peekFirst());
 
         assertEquals("peekFirst should not change capacity", 10,
                 deque.data.length);
@@ -203,18 +195,18 @@ public class PublicTester {
     }
 
     /**
-     * Test peekLast from deque containing several elements in the middle
-     * of the array
+     * Test peekLast from deque containing several elements in the middle of the
+     * array
      */
     @Test
     public void testPeekLast() {
         MyDeque<Integer> deque = new MyDeque<>(10);
-        Integer[] orig = {3, 5, 2, null, null, null, null, null, null, null};
-        Integer[] finalOrdering = {3, 5, 2};
+        Integer[] orig = { 3, 5, 2, null, null, null, null, null, null, null };
+        Integer[] finalOrdering = { 3, 5, 2 };
         initDeque(deque, orig, 3, 0, 2);
 
-        assertEquals("Value at front should be returned",
-                Integer.valueOf(2), deque.peekLast());
+        assertEquals("Value at front should be returned", Integer.valueOf(2),
+                deque.peekLast());
 
         assertEquals("peekLast should not change capacity", 10,
                 deque.data.length);
@@ -236,20 +228,18 @@ public class PublicTester {
 
         assertEquals("Capacity should be initialized to 10", 10,
                 stack.theStack.data.length);
-        assertEquals("Size should be initialized to 0", 0,
-                stack.theStack.size);
+        assertEquals("Size should be initialized to 0", 0, stack.theStack.size);
         assertEquals("Front should be initialized to 0", 0,
                 stack.theStack.front);
-        assertEquals("Rear should be initialized to 0", 0,
-                stack.theStack.rear);
+        assertEquals("Rear should be initialized to 0", 0, stack.theStack.rear);
     }
 
     /** Test empty on stack with size 0 */
     @Test
     public void testStackEmpty() {
         MyStack<Integer> stack = new MyStack<>(10);
-        Integer[] orig = {null, null, null, null, null, null, null, null,
-                null, null};
+        Integer[] orig = { null, null, null, null, null, null, null, null, null,
+                null };
         initDeque(stack.theStack, orig, 0, 0, 0);
 
         assertTrue("Call to empty should return true", stack.empty());
@@ -264,8 +254,8 @@ public class PublicTester {
     @Test
     public void testStackPush() {
         MyStack<Integer> stack = new MyStack<>(10);
-        Integer[] orig = {null, null, null, null, null, null, null, null,
-                null, null};
+        Integer[] orig = { null, null, null, null, null, null, null, null, null,
+                null };
         initDeque(stack.theStack, orig, 0, 0, 0);
 
         stack.push(3);
@@ -284,7 +274,7 @@ public class PublicTester {
     @Test
     public void testStackPop() {
         MyStack<Integer> stack = new MyStack<>(10);
-        Integer[] orig = {1, 2, 3, null, null, null, null, null, null, null};
+        Integer[] orig = { 1, 2, 3, null, null, null, null, null, null, null };
         initDeque(stack.theStack, orig, 3, 0, 2);
 
         Integer res = stack.pop();
@@ -292,8 +282,8 @@ public class PublicTester {
         if (res == 1 || res == 3) {
             assertEquals("Size should have decremented", 2,
                     stack.theStack.size);
-            if (stack.theStack.peekFirst() != 2 &&
-                    stack.theStack.peekLast() != 2) {
+            if (stack.theStack.peekFirst() != 2
+                    && stack.theStack.peekLast() != 2) {
                 fail("Next element to remove should be 2");
             }
         } else {
@@ -307,7 +297,7 @@ public class PublicTester {
     @Test
     public void testStackPeek() {
         MyStack<Integer> stack = new MyStack<>(10);
-        Integer[] orig = {1, 2, 3, null, null, null, null, null, null, null};
+        Integer[] orig = { 1, 2, 3, null, null, null, null, null, null, null };
         initDeque(stack.theStack, orig, 3, 0, 2);
 
         Integer res = stack.peek();
@@ -315,8 +305,8 @@ public class PublicTester {
         if (res == 1 || res == 3) {
             assertEquals("Size should not have decremented", 3,
                     stack.theStack.size);
-            if (stack.theStack.peekFirst() != 1 &&
-                    stack.theStack.peekLast() != 3) {
+            if (stack.theStack.peekFirst() != 1
+                    && stack.theStack.peekLast() != 3) {
                 fail("Elements on either end should not have changed");
             }
         } else {
@@ -336,20 +326,18 @@ public class PublicTester {
         MyQueue<Integer> queue = new MyQueue<>(10);
         assertEquals("Capacity should be initialized to 10", 10,
                 queue.theQueue.data.length);
-        assertEquals("Size should be initialized to 0", 0,
-                queue.theQueue.size);
+        assertEquals("Size should be initialized to 0", 0, queue.theQueue.size);
         assertEquals("Front should be initialized to 0", 0,
                 queue.theQueue.front);
-        assertEquals("Rear should be initialized to 0", 0,
-                queue.theQueue.rear);
+        assertEquals("Rear should be initialized to 0", 0, queue.theQueue.rear);
     }
 
     /** Test empty on queue with size 0 */
     @Test
     public void testQueueEmpty() {
         MyQueue<Integer> queue = new MyQueue<>(10);
-        Integer[] orig = {null, null, null, null, null, null, null, null,
-                null, null};
+        Integer[] orig = { null, null, null, null, null, null, null, null, null,
+                null };
         initDeque(queue.theQueue, orig, 0, 0, 0);
 
         assertTrue("Call to empty should return true", queue.empty());
@@ -364,8 +352,8 @@ public class PublicTester {
     @Test
     public void testQueueEnqueue() {
         MyQueue<Integer> queue = new MyQueue<>(10);
-        Integer[] orig = {null, null, null, null, null, null, null, null,
-                null, null};
+        Integer[] orig = { null, null, null, null, null, null, null, null, null,
+                null };
         initDeque(queue.theQueue, orig, 0, 0, 0);
 
         queue.enqueue(3);
@@ -384,7 +372,7 @@ public class PublicTester {
     @Test
     public void testQueueDequeue() {
         MyQueue<Integer> queue = new MyQueue<>(10);
-        Integer[] orig = {1, 2, 3, null, null, null, null, null, null, null};
+        Integer[] orig = { 1, 2, 3, null, null, null, null, null, null, null };
         initDeque(queue.theQueue, orig, 3, 0, 2);
 
         Integer res = queue.dequeue();
@@ -410,7 +398,7 @@ public class PublicTester {
     @Test
     public void testQueuePeek() {
         MyQueue<Integer> queue = new MyQueue<>(10);
-        Integer[] orig = {1, 2, 3, null, null, null, null, null, null, null};
+        Integer[] orig = { 1, 2, 3, null, null, null, null, null, null, null };
         initDeque(queue.theQueue, orig, 3, 0, 2);
 
         Integer res = queue.peek();
@@ -418,8 +406,8 @@ public class PublicTester {
         if (res == 1 || res == 3) {
             assertEquals("Size should not have decremented", 3,
                     queue.theQueue.size);
-            if (queue.theQueue.peekFirst() != 1 &&
-                    queue.theQueue.peekLast() != 3) {
+            if (queue.theQueue.peekFirst() != 1
+                    && queue.theQueue.peekLast() != 3) {
                 fail("Elements on either end should not have changed");
             }
         } else {
@@ -437,6 +425,7 @@ public class PublicTester {
     @Test
     public void simpleValidBrackets() {
         String input = "(abc)[def]";
-        assertTrue("This is a valid string of brackets", MyAlgorithm.isValidBrackets(input));
+        assertTrue("This is a valid string of brackets",
+                MyAlgorithm.isValidBrackets(input));
     }
 }

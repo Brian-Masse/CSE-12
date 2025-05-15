@@ -63,7 +63,8 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // add the element
         int capacity = this.data.length;
-        int index = (this.front - 1) % capacity;
+        int iterator = this.data[this.front] == null ? 0 : 1;
+        int index = (this.front + capacity - iterator) % capacity;
         this.data[index] = element;
 
         // update instance vars
@@ -84,7 +85,8 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // add the element
         int capacity = this.data.length;
-        int index = (this.rear + 1) % capacity;
+        int iterator = this.data[this.rear] == null ? 0 : 1;
+        int index = (this.rear + capacity - iterator) % capacity;
         this.data[index] = element;
 
         // update instance vars
@@ -95,6 +97,7 @@ public class MyDeque<E> implements DequeInterface<E> {
     // MARK: removeFirst
     public E removeFirst() {
         Object data = this.data[this.front];
+        this.data[this.front] = null;
 
         // if there is no data at the front, do nothing
         if (data == null) {
@@ -113,6 +116,7 @@ public class MyDeque<E> implements DequeInterface<E> {
     // MARK: removeLast
     public E removeLast() {
         Object data = this.data[this.rear];
+        this.data[this.rear] = null;
 
         // if there is no data at rear, do nothing
         if (data == null) {

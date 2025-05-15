@@ -2,7 +2,7 @@
  * This class implements the Stack ADT using a MyDeque instance variable called
  * theStack.
  * 
- * The implementation uses the back of the queue as the top of the stack
+ * The implementation uses the front of the queue as the top of the stack
  */
 public class MyStack<E> implements StackInterface<E> {
     MyDeque<E> theStack;
@@ -34,7 +34,7 @@ public class MyStack<E> implements StackInterface<E> {
      */
     @Override
     public void push(E element) {
-        this.theStack.addLast(element);
+        this.theStack.addFirst(element);
     }
 
     /**
@@ -45,7 +45,7 @@ public class MyStack<E> implements StackInterface<E> {
      */
     @Override
     public E pop() {
-        return this.theStack.removeLast();
+        return this.theStack.removeFirst();
     }
 
     /**
@@ -56,7 +56,7 @@ public class MyStack<E> implements StackInterface<E> {
      */
     @Override
     public E peek() {
-        return this.theStack.peekLast();
+        return this.theStack.peekFirst();
     }
 
     /**
