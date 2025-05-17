@@ -7,7 +7,7 @@
   This file is for CSE 12 PA6 in Spring 2025,
 */
 
-// MARK: MYDeque
+// MARK: MyDeque
 /**
  * This class represents a generic Deque data type similar to the one found in
  * Java
@@ -20,6 +20,7 @@ public class MyDeque<E> implements DequeInterface<E> {
     // static variables
     private static final int DEFAULT_CAPACITY = 10;
     private static final int EXPAND_CAPACITY_RATIO = 2;
+    private static final int STANDARD_ITERATOR = 1;
 
     // instance variables
     Object[] data;
@@ -31,7 +32,7 @@ public class MyDeque<E> implements DequeInterface<E> {
     /**
      * Initializes an empty deque with default capacity
      * 
-     * @param initialCapacity: the initialCapacity to initialize the deque with
+     * @param initialCapacity the initialCapacity to initialize the deque with
      */
     public MyDeque(int initialCapacity) {
         if (initialCapacity < 0) {
@@ -77,7 +78,7 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // update instance variables
         this.front = 0;
-        this.rear = size == 0 ? 0 : size - 1;
+        this.rear = size == 0 ? 0 : size - STANDARD_ITERATOR;
         this.data = newArray;
     }
 
@@ -101,12 +102,12 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // add the element
         int capacity = this.data.length;
-        int iterator = this.data[this.front] == null ? 0 : 1;
+        int iterator = this.data[this.front] == null ? 0 : STANDARD_ITERATOR;
         int index = (this.front + capacity - iterator) % capacity;
         this.data[index] = element;
 
         // update instance vars
-        this.size += 1;
+        this.size++;
         this.front = index;
     }
 
@@ -130,12 +131,12 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // add the element
         int capacity = this.data.length;
-        int iterator = this.data[this.rear] == null ? 0 : 1;
+        int iterator = this.data[this.rear] == null ? 0 : STANDARD_ITERATOR;
         int index = (this.rear + capacity + iterator) % capacity;
         this.data[index] = element;
 
         // update instance vars
-        this.size += 1;
+        this.size++;
         this.rear = index;
     }
 
@@ -160,7 +161,7 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // update instance vars
         int capacity = this.data.length;
-        int nextFrontIndex = (this.front + 1) % capacity;
+        int nextFrontIndex = (this.front + STANDARD_ITERATOR) % capacity;
         this.size--;
         this.front = nextFrontIndex;
 
@@ -188,7 +189,7 @@ public class MyDeque<E> implements DequeInterface<E> {
 
         // update instance vars
         int capacity = this.data.length;
-        int nextRearIndex = (this.rear - 1) % capacity;
+        int nextRearIndex = (this.rear - STANDARD_ITERATOR) % capacity;
         this.size--;
         this.rear = nextRearIndex;
 

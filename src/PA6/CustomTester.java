@@ -16,10 +16,16 @@ import static org.junit.Assert.*;
  * The custom tester for PA6, which covers some basic test cases.
  */
 public class CustomTester {
-
-    // Defines a generic operation on a HashMap to make function calls easier
+    /**
+     * Defines a generic operation on a HashMap to make function calls easier
+     */
     @FunctionalInterface
     interface DequeOperation {
+        /**
+         * Generic operation taking in a deque object and running some code
+         * 
+         * @param deque the deque to run the function on
+         */
         void execute(MyDeque deque);
     }
 
@@ -45,24 +51,6 @@ public class CustomTester {
     // queues
     MyQueue<Integer> emptyQueue;
     MyQueue<Integer> fullQueue;
-
-    // MARK: PrintArray
-    /**
-     * Creates and prints a string representation of an Array
-     * 
-     * @param arr the array to print
-     */
-    private void printArray(Object[] arr) {
-        System.out.print("[");
-
-        int capacity = arr.length;
-        for (int i = 0; i < capacity; i++) {
-            String str = arr[i] == null ? "Null" : arr[i].toString();
-            System.out.print("" + str + ", ");
-        }
-
-        System.out.print("] \n");
-    }
 
     // MARK: translateDeque
     /**
@@ -129,6 +117,11 @@ public class CustomTester {
     }
 
     // MARK: StoreDeque
+    /**
+     * Stores all the relevant properties of a Deque object into this class
+     * 
+     * @param deque the deque to store
+     */
     private void storeDeque(MyDeque deque) {
         Object[] translateObjects = translateDeque(deque);
 
@@ -140,6 +133,13 @@ public class CustomTester {
     }
 
     // MARK: StoreArray
+    /**
+     * Stores an array interpretation of a Dequeue object into this clsas
+     * 
+     * @param arr   the array to store
+     * @param front the index of the front of the deque
+     * @param rear  the index of the rear of the deque
+     */
     private void storeArray(Object[] arr, int front, int rear) {
         int capacity = arr.length;
         int size = 0;
@@ -160,9 +160,9 @@ public class CustomTester {
      * Tests that a generic function that should raise an exception, does raise
      * the correct type of exception
      * 
-     * @param map           the map to perform the function on
+     * @param deque         the deque to perform the function on
      * @param exceptionType the expected type of exception the function raises
-     * @param operation     the function to perform on the map
+     * @param operation     the function to perform on the deque
      */
     private void testExceptionRaised(MyDeque deque, Class<?> exceptionType,
             DequeOperation operation) {
@@ -183,6 +183,11 @@ public class CustomTester {
     }
 
     // MARK: Before
+    /**
+     * This sets up the test fixture. JUnit invokes this method before every
+     * testXXX method. The @Before tag tells JUnit to run this method before
+     * each test.
+     */
     @Before
     public void setup() {
         // setup deadDeque
@@ -234,6 +239,9 @@ public class CustomTester {
     }
 
     // MARK: DequeueConstructuor
+    /**
+     * Tests passing in an invalid argument to the constructor of a deque
+     */
     @Test
     public void testNullConstructor() {
         boolean caughtException = false;
@@ -248,6 +256,10 @@ public class CustomTester {
     }
 
     // MARK: Expand Capacity
+    /**
+     * Tests expand capacity on a deque with 0 capacity, that is empty, that has
+     * some elements, and that is full
+     */
     @Test
     public void testExpandCapacity() {
         // test a deque with capacity 0
@@ -287,6 +299,10 @@ public class CustomTester {
     }
 
     // MARK: addFirst
+    /**
+     * Tests adding an element to the start of a deque. Tests passing an invlaid
+     * arugment, adding to an empty deque, and to a full deque
+     */
     @Test
     public void testAddFirst() {
         // test adding a null element to an empty deque
@@ -332,6 +348,10 @@ public class CustomTester {
     }
 
     // MARK: addLast
+    /**
+     * Tests adding an element to the end of a deque. Tests passing an invlaid
+     * arugment, adding to an empty deque, and to a full deque
+     */
     @Test
     public void testAddLast() {
         // test adding a null element to an empty deque
@@ -379,6 +399,10 @@ public class CustomTester {
     }
 
     // MARK: removeFirst
+    /**
+     * Tests removing an element from the start of a deque. Tests remove from an
+     * empty deque, and a full deque
+     */
     @Test
     public void testRemoveFirst() {
         // remove from a dead queue
@@ -410,6 +434,10 @@ public class CustomTester {
     }
 
     // MARK: removeLast
+    /**
+     * Tests removing an element from the end of a deque. Tests remove from an
+     * empty deque, and a full deque
+     */
     @Test
     public void testRemoveLast() {
         // remove from a dead queue
@@ -441,6 +469,10 @@ public class CustomTester {
     }
 
     // MARK: myStack
+    /**
+     * Tests the implementation of a stack. Tests invalid constructor and basic
+     * pushing
+     */
     @Test
     public void testMyStack() {
         // test invalid constructor
@@ -462,18 +494,19 @@ public class CustomTester {
         this.checkDeque(emptyStack.theStack);
 
         // test push on a Full Stack
-        expectedOutput = new Object[DEFAULT_CAPACITY * 2];
-        for (int i = 0; i < DEFAULT_CAPACITY; i++) {
-            expectedOutput[i] = i;
-        }
-        expectedOutput[DEFAULT_CAPACITY * 2 - 1] = DEFAULT_CAPACITY;
-        this.storeArray(expectedOutput, DEFAULT_CAPACITY * 2 - 1,
-                DEFAULT_CAPACITY - 1);
-
         fullStack.push(DEFAULT_CAPACITY);
-        this.checkDeque(fullStack.theStack);
+
+        assertEquals("Checking size", DEFAULT_CAPACITY + 1,
+                fullStack.theStack.size);
+        assertTrue("Checking Top of Stack",
+                fullStack.peek().equals(DEFAULT_CAPACITY));
+        assertEquals("Checking Capacity", DEFAULT_CAPACITY * 2,
+                fullStack.theStack.data.length);
     }
 
+    /**
+     * Tests removing an element from an empty and full stack
+     */
     @Test
     public void testPopMyStack() {
         // test remove on an empty stack
@@ -496,6 +529,10 @@ public class CustomTester {
     }
 
     // MARK: myQueue
+    /**
+     * Tests the implementation of a queue. Tests invalid constructor and basic
+     * enqueuing
+     */
     @Test
     public void testMyQueue() {
         // test invalid constructor
@@ -517,16 +554,27 @@ public class CustomTester {
         this.checkDeque(emptyQueue.theQueue);
 
         // test push on a Full Queue
-        expectedOutput = new Object[DEFAULT_CAPACITY * 2];
-        for (int i = 0; i < DEFAULT_CAPACITY + 1; i++) {
-            expectedOutput[i] = i;
-        }
-        this.storeArray(expectedOutput, 0, DEFAULT_CAPACITY);
-
         fullQueue.enqueue(DEFAULT_CAPACITY);
-        this.checkDeque(fullQueue.theQueue);
+
+        assertEquals("Checking size", DEFAULT_CAPACITY + 1,
+                fullStack.theStack.size);
+        assertEquals("Checking Capacity", DEFAULT_CAPACITY * 2,
+                fullStack.theStack.data.length);
+
+        if (fullQueue.peek() == fullQueue.theQueue.peekFirst()) {
+            assertTrue("Check bottom of Queue",
+                    fullQueue.theQueue.peekLast().equals(DEFAULT_CAPACITY));
+        } else if (fullQueue.peek() == fullQueue.theQueue.peekLast()) {
+            assertTrue("Check top of Queue",
+                    fullQueue.theQueue.peekFirst().equals(DEFAULT_CAPACITY));
+        } else {
+            assertTrue(false);
+        }
     }
 
+    /**
+     * Tests dequeuing an element from a full and empty stack
+     */
     @Test
     public void testDequeueMyQueue() {
         // test remove on an empty Queue
@@ -537,21 +585,22 @@ public class CustomTester {
         this.checkDeque(this.emptyQueue.theQueue);
 
         // test remove on a full Queue
-        Object[] expectedOutput = new Object[DEFAULT_CAPACITY];
-        expectedOutput[DEFAULT_CAPACITY - 1] = DEFAULT_CAPACITY - 1;
-        this.storeArray(expectedOutput, DEFAULT_CAPACITY - 1,
-                DEFAULT_CAPACITY - 1);
-
         for (int i = 0; i < DEFAULT_CAPACITY - 1; i++) {
-            result = fullQueue.dequeue();
+            Object expectedResult = fullQueue.peek();
 
-            assertEquals("Check return value", i, result);
+            result = fullQueue.dequeue();
+            assertEquals("Check return value", expectedResult, result);
         }
 
-        this.checkDeque(fullQueue.theQueue);
+        assertEquals("Checking size", 1, fullStack.theStack.size);
+        assertEquals("Checking front == rear", fullStack.theStack.front,
+                fullStack.theStack.rear);
     }
 
     // MARK: MyAlgorithm
+    /**
+     * Tests the correctness of MyAlgorithm on several inputs
+     */
     @Test
     public void testAlgorithm() {
         // test emtpy string

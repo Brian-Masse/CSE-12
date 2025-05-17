@@ -13,8 +13,6 @@ import static org.junit.Assert.*;
  * This class contains public test cases for MyDeque, MyStack, and MyQueue
  */
 public class DequePublicTester {
-    private static final double EPSILON = 0.0001d;
-
     /**
      * Helper method to initialize all instance variables of MyDeque
      * 

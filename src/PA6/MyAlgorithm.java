@@ -15,6 +15,8 @@ public class MyAlgorithm {
     private static final String SET2 = "[]";
     private static final String SET3 = "{}";
 
+    private static final int DEFAULT_CAPACITY = 5;
+
     /**
      * Returns whether or not the given string contains a valid arrangement of
      * brackets
@@ -32,7 +34,7 @@ public class MyAlgorithm {
         String[] validSets = { SET1, SET2, SET3 };
         int setCount = validSets.length;
 
-        MyStack<Character> stack = new MyStack<Character>(5);
+        MyStack<Character> stack = new MyStack<Character>(DEFAULT_CAPACITY);
         int length = input.length();
 
         for (int i = 0; i < length; i++) {
