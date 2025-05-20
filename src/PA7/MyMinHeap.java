@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
 
@@ -7,6 +8,23 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
     // MARK: Initializers
     public MyMinHeap() {
         this.data = new ArrayList<>();
+    }
+
+    public MyMinHeap(Collection<? extends E> collection) {
+        if (collection == null) {
+            throw new NullPointerException();
+        }
+
+        this.data = new ArrayList<E>(collection);
+        int size = this.data.size();
+
+        for (int i = 0; i < size; i++) {
+            if (data.get(i) == null) {
+                throw new NullPointerException();
+            }
+
+            this.percolateDown(i);
+        }
     }
 
     // MARK: swap
