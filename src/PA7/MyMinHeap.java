@@ -5,6 +5,16 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
 
     protected ArrayList<E> data;
 
+    public static void printList(ArrayList list) {
+        int size = list.size();
+
+        System.out.print("[");
+        for (int i = 0; i < size; i++) {
+            System.out.print("" + list.get(i).toString() + ", ");
+        }
+        System.out.println("]");
+    }
+
     // MARK: Initializers
     public MyMinHeap() {
         this.data = new ArrayList<>();
@@ -15,11 +25,13 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
             throw new NullPointerException();
         }
 
-        this.data = new ArrayList<E>(collection);
+        this.data = new ArrayList<>(collection);
         int size = this.data.size();
 
-        for (int i = 0; i < size; i++) {
-            if (data.get(i) == null) {
+        for (int i = size - 1; i >= 0; i--) {
+            E element = this.data.get(i);
+
+            if (element == null) {
                 throw new NullPointerException();
             }
 
@@ -36,37 +48,38 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
 
     // MARK: getParentIndex
     protected static int getParentIdx(int index) {
-        double result = index / 2;
-        return (int) Math.floor(result);
+        double result = (index - 1) / 2;
+        return (int) result;
     }
 
     // MARK: getLeftChildIdx
     protected static int getLeftChildIdx(int index) {
-        return index * 2;
+        return index * 2 + 1;
     }
 
     // MARK: getRightChildIdx
     protected static int getRightChildIdx(int index) {
-        return index * 2 + 1;
+        return index * 2 + 2;
     }
 
     // MARK: getMinChildIdx
     protected int getMinChildIdx(int index) {
         int leftIndex = getLeftChildIdx(index);
-        int rightIndex = getLeftChildIdx(index);
+        int rightIndex = getRightChildIdx(index);
 
-        // TODO: this might be a bad bounds check
-        // check if this is a leaf child
+        // first check if this is a leaf node (if it is return -1)
+        // if it only has one child, then return the left node
         if (rightIndex >= this.data.size()) {
-            return -1;
+            if (leftIndex >= this.data.size()) {
+                return -1;
+            }
+            return leftIndex;
         }
 
         E left = this.data.get(leftIndex);
         E right = this.data.get(rightIndex);
 
-        // TODO: check comparing null and a valid entry
-        // if the right child is null, avoid comparing and return the left node
-        return right.compareTo(left) > 1 ? rightIndex : leftIndex;
+        return right.compareTo(left) < 0 ? rightIndex : leftIndex;
     }
 
     // MARK: percolateUp
@@ -86,11 +99,13 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
         int currentIndex = index;
         int size = this.data.size();
 
-        while (data.get(childIndex).compareTo(data.get(currentIndex)) < 0
+        while (childIndex != -1
+                && data.get(childIndex).compareTo(data.get(currentIndex)) < 0
                 && childIndex < size) {
 
             this.swap(currentIndex, childIndex);
             currentIndex = childIndex;
+            childIndex = getMinChildIdx(currentIndex);
         }
     }
 
@@ -125,7 +140,7 @@ public class MyMinHeap<E extends Comparable<E>> implements MinHeapInterface<E> {
 
         // add the element
         this.data.add(element);
-        int lastIndex = this.data.size();
+        int lastIndex = this.data.size() - 1;
 
         // ensure its placed correctly
         this.percolateUp(lastIndex);
