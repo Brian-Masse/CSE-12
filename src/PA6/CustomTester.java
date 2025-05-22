@@ -605,32 +605,32 @@ public class CustomTester {
     public void testAlgorithm() {
         // test emtpy string
         String input = "";
-        boolean result = MyAlgorithm2.isValidBrackets(input);
+        boolean result = MyAlgorithm.isValidBrackets(input);
 
         assertTrue("Testing Empty String", result);
 
         // test string without brackets
         input = "Hello World! This has no Brackets";
-        result = MyAlgorithm2.isValidBrackets(input);
+        result = MyAlgorithm.isValidBrackets(input);
 
         assertTrue("Test string Without Brackets", result);
 
         // Check Even, but out of order Brackets
         input = "((([[{{{{]])))}}}}";
-        result = MyAlgorithm2.isValidBrackets(input);
+        result = MyAlgorithm.isValidBrackets(input);
 
         assertTrue("Test even, but out of order Brackets", !result);
 
         // Check incorrect number of brackets
         input = "(({{[[]}}))";
-        result = MyAlgorithm2.isValidBrackets(input);
+        result = MyAlgorithm.isValidBrackets(input);
 
         assertTrue("Test incorrect number of brackets", !result);
 
         // Check correct brackets with additional text
         input = "((hi thre {this [should still work despite(( being full {[{";
         String input2 = "[ of text!!]}]})and) theres] some} text) here) too!";
-        result = MyAlgorithm2.isValidBrackets(input + input2);
+        result = MyAlgorithm.isValidBrackets(input + input2);
         assertTrue("Test correct brackets with text", result);
 
     }

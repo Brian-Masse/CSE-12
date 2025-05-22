@@ -303,6 +303,6 @@ public class PublicTester {
         ArrayList<Integer> list = new ArrayList<>(
                 Arrays.asList(0, 10, 1, 9, 2, 8, 3, 7, 4, 6, 5));
         assertEquals("8 is the third largest number in this list",
-                Integer.valueOf(8), MyAlgorithm2.getKthLargest(list, 3));
+                Integer.valueOf(8), MyAlgorithm.getKthLargest(list, 3));
     }
 }
