@@ -1,39 +1,46 @@
 import java.util.ArrayList;
 
-
+// MARK: MyBST
 public class MyBST<K extends Comparable<K>, V> {
     MyBSTNode<K, V> root = null;
     int size = 0;
 
+    // MARK: Size
     public int size() {
         return size;
     }
 
+    // MARK: Insert
     public V insert(K key, V value) {
         // TODO
         return null;
     }
 
+    // MARK: Search
     public V search(K key) {
         // TODO
         return null;
     }
 
+    // MARK: Remove
     public V remove(K key) {
         // TODO
         return null;
     }
 
+    // MARK: InOrder
     public ArrayList<MyBSTNode<K, V>> inorder() {
         // TODO
         return null;
     }
 
+    // MARK: copy
     public MyBST<K, V> copy() {
-        //TODO
+        // TODO
         return null;
     }
 
+    // MAKR: BSTNode
     static class MyBSTNode<K, V> {
         private static final String TEMPLATE = "Key: %s, Value: %s";
         private static final String NULL_STR = "null";
@@ -164,10 +171,10 @@ public class MyBST<K extends Comparable<K>, V> {
 
             MyBSTNode<K, V> comp = (MyBSTNode<K, V>) obj;
 
-            return ((this.getKey() == null ? comp.getKey() == null :
-                    this.getKey().equals(comp.getKey()))
-                    && (this.getValue() == null ? comp.getValue() == null :
-                    this.getValue().equals(comp.getValue())));
+            return ((this.getKey() == null ? comp.getKey() == null
+                    : this.getKey().equals(comp.getKey()))
+                    && (this.getValue() == null ? comp.getValue() == null
+                            : this.getValue().equals(comp.getValue())));
         }
 
         /**
@@ -176,8 +183,7 @@ public class MyBST<K extends Comparable<K>, V> {
          * @return "Key:Value" that represents the node object
          */
         public String toString() {
-            return String.format(
-                    TEMPLATE,
+            return String.format(TEMPLATE,
                     this.getKey() == null ? NULL_STR : this.getKey(),
                     this.getValue() == null ? NULL_STR : this.getValue());
         }
