@@ -424,6 +424,6 @@ public class DequePublicTester {
     public void simpleValidBrackets() {
         String input = "(abc)[def]";
         assertTrue("This is a valid string of brackets",
-                MyAlgorithm.isValidBrackets(input));
+                MyDequeAlgorithm.isValidBrackets(input));
     }
 }

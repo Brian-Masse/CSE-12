@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * list of numbers uisng a priority queue and minheap data structure
  * 
  */
-public class MyAlgorithm {
+public class MyPriorityQueueAlgorithm {
 
     /**
      * Finds the kth largest value in an unsorted list of numbers

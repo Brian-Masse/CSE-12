@@ -10,7 +10,7 @@
 /**
  * This class contains an algorithm utilizing a stack or queue.
  */
-public class MyAlgorithm {
+public class MyDequeAlgorithm {
     private static final String SET1 = "()";
     private static final String SET2 = "[]";
     private static final String SET3 = "{}";
