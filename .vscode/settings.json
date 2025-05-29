@@ -9,6 +9,7 @@
     "src/PA5",
     "src/PA6",
     "src/PA7",
+    "src/PA8",
     "src/tests"
   ],
   "java.project.outputPath": "bin",
