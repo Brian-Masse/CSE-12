@@ -1,16 +1,45 @@
+/* 
+  Name: Brian J. Masse
+  Email: bmasse@ucsd.edu
+  PID: A17991084
+  Sources Used: Java Interface Documentation, PA8 Write-up
+   
+  This file is for CSE 12 PA8 in Spring 2025,
+*/
+
 import java.util.ArrayList;
 
 // MARK: MyBST
+/**
+ * This class represents a generic BST data type
+ * 
+ * It contains standard functions including insert, remove, search
+ */
 public class MyBST<K extends Comparable<K>, V> {
+
+    // instance variables
     MyBSTNode<K, V> root = null;
     int size = 0;
 
     // MARK: Size
+    /**
+     * Gets the number of elements in the BST
+     * 
+     * @return number of elements in the BST
+     */
     public int size() {
         return size;
     }
 
     // MARK: Insert
+    /**
+     * Inserts a new element into the BST. If the key already exists, the vlaue
+     * is replaced
+     * 
+     * @param key   the key of the new element
+     * @param value the value of the new element
+     * @return the value of the old element, if it was updated
+     */
     public V insert(K key, V value) {
         if (key == null) {
             throw new NullPointerException();
@@ -64,13 +93,31 @@ public class MyBST<K extends Comparable<K>, V> {
     }
 
     // MARK: Search
+    /**
+     * Searches for an element in the BST. If there is no match it returns null
+     * 
+     * @param key the key of the element to search for
+     * @return the value at the key
+     */
     public V search(K key) {
         MyBSTNode<K, V> result = searchForNode(key);
         return result == null ? null : (V) result.getValue();
     }
 
+    // MARK: searchForNode
+    /**
+     * Searches for an element in the BST. If there is a match it returns a
+     * reference to the node
+     * 
+     * @param key the key of the element to search for
+     * @return the node at the key
+     */
     private MyBSTNode<K, V> searchForNode(K key) {
         MyBSTNode<K, V> currentNode = this.root;
+
+        if (key == null) {
+            return null;
+        }
 
         while (currentNode != null) {
             K currentKey = (K) currentNode.getKey();
@@ -94,6 +141,13 @@ public class MyBST<K extends Comparable<K>, V> {
     }
 
     // MARK: Remove
+    /**
+     * Removes an element from the BST. If no elements for the given key are
+     * found it returns null
+     * 
+     * @param key the key of the element to remove
+     * @return the value of the node being removed
+     */
     public V remove(K key) {
         // first get a reference to the node to remove
         MyBSTNode<K, V> removingNode = searchForNode(key);
@@ -102,10 +156,10 @@ public class MyBST<K extends Comparable<K>, V> {
         }
 
         V value = (V) removingNode.getValue();
-        this.size--;
 
         // if you are a leaf node, update your parent
         if (removingNode.getRight() == null && removingNode.getLeft() == null) {
+            this.size--;
             MyBSTNode<K, V> parent = removingNode.getParent();
 
             // if the parent is null, update the root instance var
@@ -115,7 +169,8 @@ public class MyBST<K extends Comparable<K>, V> {
             }
 
             // otherwise update the correct side of the parrent
-            if (parent.getRight().equals(removingNode)) {
+            MyBSTNode<K, V> right = parent.getRight();
+            if (right != null && right.equals(removingNode)) {
                 parent.setRight(null);
             } else {
                 parent.setLeft(null);
@@ -125,6 +180,7 @@ public class MyBST<K extends Comparable<K>, V> {
 
         // if you have one child
         if (removingNode.getRight() == null || removingNode.getLeft() == null) {
+            this.size--;
             MyBSTNode<K, V> child = removingNode.getRight() == null
                     ? removingNode.getLeft()
                     : removingNode.getRight();
@@ -158,6 +214,11 @@ public class MyBST<K extends Comparable<K>, V> {
     }
 
     // MARK: InOrder
+    /**
+     * Scans through the BST, and collects each node in ascending order
+     * 
+     * @return the list of nodes in the BST, sorted
+     */
     public ArrayList<MyBSTNode<K, V>> inorder() {
         ArrayList<MyBSTNode<K, V>> list = new ArrayList<MyBSTNode<K, V>>();
 
@@ -180,6 +241,12 @@ public class MyBST<K extends Comparable<K>, V> {
     }
 
     // MARK: copy
+    /**
+     * Copies all the elements in a BST. The new nodes do not point to the same
+     * data in memory
+     * 
+     * @return the copied BST
+     */
     public MyBST<K, V> copy() {
         MyBST<K, V> copy = new MyBST<>();
 
@@ -188,6 +255,13 @@ public class MyBST<K extends Comparable<K>, V> {
         return copy;
     }
 
+    // MARK: CopyNode
+    /**
+     * Copies an individual node and its children into a container BST
+     * 
+     * @param BST  the BST to copy into
+     * @param node the node to copy
+     */
     private void copyNode(MyBST<K, V> BST, MyBSTNode<K, V> node) {
         if (node == null) {
             return;
@@ -199,6 +273,9 @@ public class MyBST<K extends Comparable<K>, V> {
     }
 
     // MARK: BSTNode
+    /**
+     * Node object for the BST
+     */
     static class MyBSTNode<K, V> {
         private static final String TEMPLATE = "Key: %s, Value: %s";
         private static final String NULL_STR = "null";
@@ -313,6 +390,12 @@ public class MyBST<K extends Comparable<K>, V> {
         }
 
         // MARK: Successor
+        /**
+         * Finds the next largest element in the BST. If none exist, it returns
+         * null
+         * 
+         * @return the next largest element
+         */
         public MyBSTNode<K, V> successor() {
             MyBSTNode<K, V> rightChild = this.getRight();
 
@@ -325,8 +408,14 @@ public class MyBST<K extends Comparable<K>, V> {
             return findSuccessorBelow(rightChild);
         }
 
-        // recursivley look above the current node until you hit a node that is
-        // larger than the current
+        // MARK: findSuccessorAbove
+        /**
+         * recursivley look above the current node until you hit a node that is
+         * larger than the current
+         * 
+         * @param currentNode the node to start the search at
+         * @return the next largest element
+         */
         private MyBSTNode<K, V> findSuccessorAbove(
                 MyBSTNode<K, V> currentNode) {
             MyBSTNode<K, V> parent = currentNode.getParent();
@@ -334,15 +423,23 @@ public class MyBST<K extends Comparable<K>, V> {
                 return null;
             }
 
-            if (parent.getLeft().equals(currentNode)) {
+            MyBSTNode<K, V> leftNode = parent.getLeft();
+            if (leftNode != null && leftNode.equals(currentNode)) {
                 return parent;
             }
 
             return findSuccessorAbove(parent);
         }
 
-        // recursivley look down from the current node until you hit the
-        // smallest node
+        // MARK: findSuccessorBelow
+        /**
+         * recursivley look down from the current node until you hit the
+         * smallest node
+         * 
+         * @param currentNode the node to start the search at
+         * @return the next largest element
+         */
+
         private MyBSTNode<K, V> findSuccessorBelow(
                 MyBSTNode<K, V> currentNode) {
             MyBSTNode<K, V> leftChild = currentNode.getLeft();
