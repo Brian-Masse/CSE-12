@@ -14,7 +14,7 @@ import org.junit.*;
  * The public tester for PA5, which covers some basic test cases.
  */
 @SuppressWarnings({ "unchecked" })
-public class PublicTester {
+public class PA5_PublicTester {
     MyHashMap<String, Integer> emptyMap;
     MyHashMap<String, Integer> threeElementMap;
     MyHashSet<String> emptySet;

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertNotNull;
  * This class contains part of the public test cases for MyMinHeap and
  * MyPriorityQueue
  */
-public class PublicTester {
+public class PA7_PublicTester {
     /**
      * Helper method to initialize all instance variables of MyMinHeap
      *
