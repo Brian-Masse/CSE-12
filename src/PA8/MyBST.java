@@ -274,7 +274,9 @@ public class MyBST<K extends Comparable<K>, V> {
 
     // MARK: BSTNode
     /**
-     * Node object for the BST
+     * This class represents a generic BST Node data type
+     * 
+     * It contains standard functions
      */
     static class MyBSTNode<K, V> {
         private static final String TEMPLATE = "Key: %s, Value: %s";
@@ -287,10 +289,10 @@ public class MyBST<K extends Comparable<K>, V> {
         private MyBSTNode<K, V> right = null;
 
         /**
-         * Creates a MyBSTNode<K,V> storing specified data
+         * Creates a MyBSTNode storing specified data
          *
-         * @param key    the key the MyBSTNode<K,V> will
-         * @param value  the data the MyBSTNode<K,V> will store
+         * @param key    the key the MyBSTNode will
+         * @param value  the data the MyBSTNode will store
          * @param parent the parent of this node
          */
         public MyBSTNode(K key, V value, MyBSTNode<K, V> parent) {
@@ -300,16 +302,16 @@ public class MyBST<K extends Comparable<K>, V> {
         }
 
         /**
-         * Return the key stored in the the MyBSTNode<K,V>
+         * Return the key stored in the the MyBSTNode
          *
-         * @return the key stored in the MyBSTNode<K,V>
+         * @return the key stored in the MyBSTNode
          */
         public K getKey() {
             return key;
         }
 
         /**
-         * Set the key stored in the MyBSTNode<K,V>
+         * Set the key stored in the MyBSTNode
          *
          * @param newKey the key to be stored
          */
@@ -318,16 +320,16 @@ public class MyBST<K extends Comparable<K>, V> {
         }
 
         /**
-         * Return data stored in the MyBSTNode<K,V>
+         * Return data stored in the MyBSTNode
          *
-         * @return the data stored in the MyBSTNode<K,V>
+         * @return the data stored in the MyBSTNode
          */
         public V getValue() {
             return value;
         }
 
         /**
-         * Set the data stored in the MyBSTNode<K,V>
+         * Set the data stored in the MyBSTNode
          *
          * @param newValue the data to be stored
          */

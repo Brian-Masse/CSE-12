@@ -15,8 +15,12 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-@SuppressWarnings({ "rawtypes", "unchecked" })
 // MARK: CustomTester
+/**
+ * This class contains test cases for the BST data struct
+ * 
+ * It contains standard functions including insert, remove, search
+ */
 public class CustomTester {
 
     /**
@@ -33,6 +37,12 @@ public class CustomTester {
     }
 
     // MARK: PrintList
+    /**
+     * Prints a generic array list
+     * 
+     * @param list the array list to print
+     * @param <E>  the generic type for the array
+     */
     private <E> void printList(ArrayList<E> list) {
         System.out.print("[");
         int size = list.size();
@@ -48,6 +58,14 @@ public class CustomTester {
     }
 
     // MARK: BST to Array
+    /**
+     * Converts a BST into an array. It scans thorugh level by level adding each
+     * node to the list. If a node only has one child a null is inserted to
+     * maintain the heirarchy
+     * 
+     * @param BST the BST to convert
+     * @return the array representation of the BST
+     */
     private ArrayList<MyBST.MyBSTNode> convertBSTToArray(MyBST BST) {
         ArrayList<MyBST.MyBSTNode> convertedArray = new ArrayList<>();
 
@@ -78,6 +96,15 @@ public class CustomTester {
     }
 
     // MARK: Array to BST
+    /**
+     * Converts an array into a BST. Takes the same schema of array as BST to
+     * array, and repeatedly inserts the elements to build a new BST. The nodes
+     * in the array and the BST are linked
+     * 
+     * @param array the array to convert
+     * @param <E>   the generic type for the array
+     * @return the BST representation of the array
+     */
     private <E extends Comparable<E>> MyBST<E, E> convertArrayToBST(
             ArrayList<E> array) {
         int size = array.size();
@@ -93,28 +120,24 @@ public class CustomTester {
 
     }
 
+    // MARK: makeList
+    /**
+     * Converts a java array to an arrayList
+     * 
+     * @param list the list to convert
+     * @return the arrayList representatin of array
+     */
     private ArrayList<Integer> makeList(Integer[] list) {
         return new ArrayList<>(Arrays.asList(list));
     }
 
-    // MARK: Instance Variables
-    ArrayList<MyBST.MyBSTNode> emptyBSTList;
-    MyBST<Integer, Integer> emptyBST;
-
-    ArrayList<MyBST.MyBSTNode> fullBSTList;
-    MyBST<Integer, Integer> fullBST;
-
-    ArrayList<MyBST.MyBSTNode> lineBSTList;
-    MyBST<Integer, Integer> lineBST;
-
-    ArrayList<MyBST.MyBSTNode> rootBSTList;
-    MyBST<Integer, Integer> rootBST;
-
-    // stored values
-    ArrayList<MyBST.MyBSTNode> storedList;
-    int storedSize;
-
     // MARK: Check BST correctness
+    /**
+     * Checks whether the nodes + instance variables of a BST data structure are
+     * correct
+     * 
+     * @param BST the BST to check
+     */
     private void checkBSTCorrectness(MyBST BST) {
         // check the BST has correct size
         assertEquals("Checking the correctness of the size", storedSize,
@@ -138,6 +161,14 @@ public class CustomTester {
     }
 
     // MARK: testExceptionRaised
+    /**
+     * Tests that a generic function that should raise an exception, does raise
+     * the correct type of exception
+     * 
+     * @param BST           the BST to perform the function on
+     * @param exceptionType the expected type of exception the function raises
+     * @param operation     the function to perform on the BST
+     */
     private void testExceptionRaised(MyBST BST, Class<?> exceptionType,
             BSTOperation operation) {
         boolean caughtException = false;
@@ -157,12 +188,23 @@ public class CustomTester {
     }
 
     // MARK: storeBST
+    /**
+     * Converts a BST into an array and stores it in this class with its size.
+     * 
+     * @param BST The BST to store
+     */
     private void storeBST(MyBST BST) {
         this.storedList = convertBSTToArray(BST);
         this.storedSize = BST.size;
     }
 
     // MARK: storeList
+    /**
+     * Copies the elements of an array into a list of Nodes and stores it + the
+     * size in this class
+     * 
+     * @param list The list to store
+     */
     private void storeList(Integer[] list) {
         ArrayList<MyBST.MyBSTNode> nodes = new ArrayList<>();
         int size = list.length;
@@ -183,7 +225,27 @@ public class CustomTester {
         this.storedSize = nonNullSize;
     }
 
+    // MARK: Instance Variables
+    ArrayList<MyBST.MyBSTNode> emptyBSTList;
+    MyBST<Integer, Integer> emptyBST;
+
+    ArrayList<MyBST.MyBSTNode> fullBSTList;
+    MyBST<Integer, Integer> fullBST;
+
+    ArrayList<MyBST.MyBSTNode> lineBSTList;
+    MyBST<Integer, Integer> lineBST;
+
+    ArrayList<MyBST.MyBSTNode> rootBSTList;
+    MyBST<Integer, Integer> rootBST;
+
+    // stored values
+    ArrayList<MyBST.MyBSTNode> storedList;
+    int storedSize;
+
     // MARK: Setup
+    /**
+     * Sets up the various BST used for test
+     */
     @Before
     public void setup() {
         // setupEmptyBST
@@ -207,6 +269,14 @@ public class CustomTester {
     }
 
     // MARK: testSuccessorFromBottom
+    /**
+     * Tests finding a successor of a given element of a BST
+     * 
+     * @param BST               the BST to check
+     * @param BSTList           an array with references to the BSTs nodes
+     * @param index             the index of the node to check
+     * @param expectedSuccessor the expectedOutcome of the successor function
+     */
     private void testSuccessor(MyBST BST, ArrayList<MyBST.MyBSTNode> BSTList,
             int index, Integer expectedSuccessor) {
         storeBST(BST);
@@ -223,7 +293,10 @@ public class CustomTester {
         checkBSTCorrectness(BST);
     }
 
-    // tests the different BSTs for their successors at various values
+    // MARK: testSuccessor
+    /**
+     * tests the different BSTs for their successors at various values
+     */
     @Test
     public void testSuccessor() {
         // fullBST
@@ -246,6 +319,16 @@ public class CustomTester {
         testSuccessor(rootBST, rootBSTList, 0, null);
     }
 
+    // MARK: testInsertHelper
+    /**
+     * A convenience function for testing the insert function
+     * 
+     * @param expectedOutput the array represntation of the outcome BST
+     * @param expectedReturn the expectedReturn of the function call
+     * @param insertKey      the key to inesrt
+     * @param insertValue    the value to insert
+     * @param BST            the BST to act on
+     */
     private void testInsertHelper(Integer[] expectedOutput,
             Integer expectedReturn, Integer insertKey, Integer insertValue,
             MyBST BST) {
@@ -275,6 +358,9 @@ public class CustomTester {
     }
 
     // MARK: testSmallestInsert
+    /**
+     * tests inserting a new element thats smaller than the rest
+     */
     @Test
     public void testSmallestInsert() {
         // emptyBST
@@ -298,6 +384,9 @@ public class CustomTester {
     }
 
     // MARK: testLargestInsert
+    /**
+     * tests inserting a new element thats larger than the rest
+     */
     @Test
     public void testLargestInsert() {
         // fullBST
@@ -316,6 +405,9 @@ public class CustomTester {
     }
 
     // MARK: testReplacementInsert
+    /**
+     * tests inserting a new element thats already in the BST
+     */
     @Test
     public void testReplacementInsert() {
         // fullBST
@@ -336,6 +428,9 @@ public class CustomTester {
     }
 
     // MARK: testNullInsertion
+    /**
+     * tests inserting a new element with a null key
+     */
     @Test
     public void testNullInsertion() {
         // fullBST
@@ -355,7 +450,14 @@ public class CustomTester {
                 (BST) -> BST.insert(null, 10));
     }
 
-    //
+    // MARK: testSearchHelper
+    /**
+     * A convenience function to help with testing the search function
+     * 
+     * @param BST            the BST to test on
+     * @param element        the element to search for
+     * @param expectedOutput the expected return of the function
+     */
     private void testSearchHelper(MyBST BST, Integer element,
             Integer expectedOutput) {
         this.storeBST(BST);
@@ -369,6 +471,9 @@ public class CustomTester {
     }
 
     // MARK: testFindLastElement
+    /**
+     * Tests finding an element at the bottom of the BST
+     */
     @Test
     public void testFindLastElement() {
         // emptyBST
@@ -385,6 +490,9 @@ public class CustomTester {
     }
 
     // MARK: testFindNonExistentElement
+    /**
+     * Tests finding an element not in the BST
+     */
     @Test
     public void testFindNonExistentElement() {
         Integer expectedOutput = null;
@@ -402,6 +510,9 @@ public class CustomTester {
     }
 
     // MARK: testNullSearch
+    /**
+     * Tests finding an element with a null key
+     */
     @Test
     public void testNullSearch() {
         Integer nullVar = null;
@@ -418,6 +529,15 @@ public class CustomTester {
         testSearchHelper(rootBST, nullVar, nullVar);
     }
 
+    // MARK: testRemoveHelper
+    /**
+     * convenience function for testing the remove function
+     * 
+     * @param BST             the BST to test on
+     * @param element         the element to remove
+     * @param expectedReturn  the expected return value of the function
+     * @param expectedOutcome the expected form of the BST
+     */
     private void testRemoveHelper(MyBST BST, Integer element,
             Integer expectedReturn, Integer[] expectedOutcome) {
         this.storeList(expectedOutcome);
@@ -429,6 +549,9 @@ public class CustomTester {
     }
 
     // MARK: testRemoveLeaf
+    /**
+     * Test remove a leaf
+     */
     @Test
     public void testRemoveLead() {
         // emptyBST
@@ -450,6 +573,9 @@ public class CustomTester {
     }
 
     // MARK: testRemoveNodes
+    /**
+     * Tests removing an element with 1 or 2 nodes
+     */
     @Test
     public void testRemoveNodes() {
         // fullList
@@ -463,6 +589,9 @@ public class CustomTester {
     }
 
     // MARK: testRemoveNull
+    /**
+     * Tests removing an element with a null key
+     */
     @Test
     public void testRemoveNull() {
         Integer[] expectedOutput = { 8, 3, 10, 1, 6, null, 14, 4, 7, 13, null };
@@ -473,6 +602,13 @@ public class CustomTester {
         testRemoveHelper(fullBST, null, null, expectedOutput);
     }
 
+    // MARK: testInOrderHelper
+    /**
+     * Convenience function for testing the inOrder function
+     * 
+     * @param BST            the BST to test on
+     * @param expectedOutput the expectedOutput of the inOrder call
+     */
     public void testInOrderHelper(MyBST BST, Integer[] expectedOutput) {
         this.storeBST(BST);
 
@@ -494,6 +630,9 @@ public class CustomTester {
     }
 
     // MARK: TestInOrder
+    /**
+     * Various test cases for the inOrder method
+     */
     @Test
     public void testInOrder() {
         // empty test
@@ -513,6 +652,11 @@ public class CustomTester {
         testInOrderHelper(rootBST, expectedOutput4);
     }
 
+    /**
+     * Convenience function for testing the copy method
+     * 
+     * @param BST the BST to test on
+     */
     private void testCopyHelper(MyBST BST) {
         this.storeBST(BST);
 
@@ -539,6 +683,9 @@ public class CustomTester {
     }
 
     // MARK: testCopy
+    /**
+     * Various test cases for the copy method
+     */
     @Test
     public void testCopy() {
         testCopyHelper(emptyBST);
